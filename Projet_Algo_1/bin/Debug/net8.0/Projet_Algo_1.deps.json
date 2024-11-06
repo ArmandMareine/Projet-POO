@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Projet_Algo_1/1.0.0": {
+        "runtime": {
+          "Projet_Algo_1.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Projet_Algo_1/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
