@@ -4,9 +4,12 @@
     {
         static void Main(string[] args)
         {
-            Dé de = new Dé();
-            char resultat = de.Lancé();
-            Console.WriteLine(resultat);
+            Console.Write("Entrez la taille du plateau (par exemple, 3 pour un plateau 3x3) : ");
+            int taille = int.Parse(Console.ReadLine());
+
+            Plateau plateau = new Plateau(taille);
+            Console.WriteLine("Voici votre plateau :");
+            plateau.LancerTousLesDés();
         }
     }
 }
