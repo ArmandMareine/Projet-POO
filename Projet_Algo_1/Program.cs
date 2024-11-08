@@ -4,7 +4,9 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World");
+            Dé de = new Dé();
+            char resultat = de.Lancé();
+            Console.WriteLine(resultat);
         }
     }
 }
