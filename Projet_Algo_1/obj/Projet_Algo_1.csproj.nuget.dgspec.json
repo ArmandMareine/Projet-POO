@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET_ALGO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj": {}
+    "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET_ALGO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj": {
+    "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET_ALGO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj",
+        "projectUniqueName": "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj",
         "projectName": "Projet_Algo_1",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET_ALGO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj",
-        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET_ALGO\\Projet-POO\\Projet_Algo_1\\obj\\",
+        "projectPath": "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\Projet_Algo_1\\Projet_Algo_1.csproj",
+        "packagesPath": "C:\\Users\\linji\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\Projet_Algo_1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\linji\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -55,12 +50,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
