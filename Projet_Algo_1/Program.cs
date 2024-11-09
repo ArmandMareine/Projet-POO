@@ -45,19 +45,29 @@ namespace Projet_Algo_1
                 tempstotal--;
                 for(int i =0; i<joueurs.Length; i++)
                 {
-                    Console.WriteLine($"C'est au tour du joueur {i+1} : {joueurs[i]} de jouer !");
-                    Console.WriteLine($"Ton temps de jeu est de {tempsjoueur} minutes");
+                    Console.WriteLine($"C'est au tour du joueur {i+1} : {joueurs[i]} de jouer !");///On donne le temps de jeu au joueur
+                    Console.WriteLine($"Ton temps de jeu est de {tempsjoueur} minutes");///On donne le temps de jeu au joueur 
+                    Console.WriteLine("Voici ton plateau :");
+                    plateau.LancerTousLesDés();
+                    while (tempsjoueur > 0)
+                    {
+                        ///Le jeu se déroule ici 
+
+
+                        tempsjoueur--;
+                        Thread.Sleep(1000);///Temps d'une seconde entre chaque itération
+                    }
+
+                   
 
                 }
-                
-                Console.WriteLine("Voici votre plateau :");
-                plateau.LancerTousLesDés();
                 Thread.Sleep(tempsjoueur);///On laisse le temps au joueur de jouer avant d'afficher un nouveau plateau
 
+
             }
-           
-            
-           
+
+
+
 
         }
     }
