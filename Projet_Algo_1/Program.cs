@@ -11,16 +11,22 @@ namespace Projet_Algo_1
             string langue = Convert.ToString(Console.ReadLine()); 
             if(langue != "Anglais" || langue!= "Français")
             {
-                Console.WriteLine("Le format est incorrect ! Format attendu : Anglais ou Français");///En cas d'erreur de saisie, on recommence
+                Console.Write("Le format est incorrect ! Format attendu : Anglais ou Français");///En cas d'erreur de saisie, on recommence
                 langue = Convert.ToString(Console.ReadLine());
             }
-            Console.WriteLine("Saisir le nombre de joueurs voulus (Attention, le minimum est 2 et le maximum 10) : ");///On saisit le nombre de joueurs
+            Console.Write("Saisir le nombre de joueurs voulus (Attention, le minimum est 2 et le maximum 10) : ");///On saisit le nombre de joueurs
             int nbjoueurs=int.Parse(Console.ReadLine());
-            int affichenbjoueurs = 1;
-            while (nbjoueurs > 0)
+            Joueur[]joueurs = new Joueur[nbjoueurs];///Définition d'un tableau de joueur pour contenir les informations chaque participant
+            for(int i = 0;i< nbjoueurs; i++)
             {
-                Console.WriteLine($"Saisir le pseudo du {affichenbjoueurs} joueur : ");
-                nbjoueurs--;
+                Console.Write($"Saisir le pseudo du joueur {i+1} : ");
+                string pseudo = Convert.ToString(Console.ReadLine());
+                joueurs[i] = new Joueur(i + 1, pseudo);///On remplit le tableau de joueurs avec les pseudos de le numéro de chaque joueur
+            }
+            Console.WriteLine("Les joueurs sont donc : ");
+            foreach(var  joueur in joueurs)///Affichage de tous les joueurs
+            {
+                Console.WriteLine(joueur.ToString());
             }
             Console.Write("Entrez la taille du plateau (par exemple, 3 pour un plateau 3x3) : ");
             int taille = int.Parse(Console.ReadLine());
@@ -37,6 +43,13 @@ namespace Projet_Algo_1
             while (tempstotal> 0)///Tant que le temps n'est pas écoulé, la partie continue
             {
                 tempstotal--;
+                for(int i =0; i<joueurs.Length; i++)
+                {
+                    Console.WriteLine($"C'est au tour du joueur {i+1} : {joueurs[i]} de jouer !");
+                    Console.WriteLine($"Ton temps de jeu est de {tempsjoueur} minutes");
+
+                }
+                
                 Console.WriteLine("Voici votre plateau :");
                 plateau.LancerTousLesDés();
                 Thread.Sleep(tempsjoueur);///On laisse le temps au joueur de jouer avant d'afficher un nouveau plateau
