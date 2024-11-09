@@ -6,31 +6,21 @@ using System.Threading.Tasks;
 
 namespace Projet_Algo_1
 {
-<<<<<<< HEAD
-    internal class Joueur
-    {
-        private string pseudo;
-        private int score;
-
-        public Joueur(string pseudo, int score)
-        {
-            this.pseudo = pseudo;
-            this.score = score;
-            score = 0;
-        }
-=======
     public class Joueur
     {
-        private string joueur;
-        private string pseudo;
+        private int Numero { get; set; }
+        private string pseudo { get; set; }
+        private int score { get; set; } 
 
-        public Joueur(string joueur, string pseudo)
+        public Joueur(int Numero, string pseudo)
         {
-            this.joueur = joueur;
+            this.Numero = Numero;
             this.pseudo = pseudo;
         }
-
+        public string ToString()
+        {
+            return $"Joueur {Numero} : {pseudo}";
+        }
         
->>>>>>> 910943b94e35b7ee42cfbc68a47b309405bb16ed
     }
 }
