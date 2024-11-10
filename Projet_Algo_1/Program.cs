@@ -48,7 +48,7 @@ namespace Projet_Algo_1
                     Console.WriteLine($"C'est au tour du joueur {i+1} : {joueurs[i]} de jouer !");///On donne le temps de jeu au joueur
                     Console.WriteLine($"Ton temps de jeu est de {tempsjoueur/60} minutes");///On donne le temps de jeu au joueur 
                     Console.WriteLine("Voici ton plateau :");
-                    plateau.LancerTousLesDés();
+                    plateau.LancerTousLesDés();///Le plateau du joueur s'affiche à l'écran
                     while (tempsjoueur > 0)
                     {
                         ///Le jeu se déroule ici 
