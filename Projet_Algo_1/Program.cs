@@ -29,7 +29,7 @@ namespace Projet_Algo_1
             {
                 Console.WriteLine(joueur.ToString());
             }
-            Console.Write("Entrez la taille du plateau (par exemple, 3 pour un plateau 3x3) : ");
+            Console.Write("Entrez la taille du plateau (par exemple, 4 pour un plateau 4x4) : ");
             int taille = int.Parse(Console.ReadLine());
             Console.Write("Saisir le temps désiré pour la partie en minutes (par exemple, 2 pour 2 minutes de partie): ");
             int tempstotal=int.Parse(Console.ReadLine())*60;
@@ -56,9 +56,9 @@ namespace Projet_Algo_1
 
                         Console.WriteLine("Hello ! ");
                         tempsjoueur--;
-                        
+                        Thread.Sleep(1000);///Temps d'une seconde entre chaque itération
                     }
-                    Thread.Sleep(1000);///Temps d'une seconde entre chaque itération
+
 
 
                 }
