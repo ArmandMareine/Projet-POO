@@ -17,11 +17,12 @@ namespace Projet_Algo_1
             Console.Write("Saisir le nombre de joueurs voulus (Attention, le minimum est 2 et le maximum 10) : ");///On saisit le nombre de joueurs
             int nbjoueurs=int.Parse(Console.ReadLine());
             Joueur[]joueurs = new Joueur[nbjoueurs];///Définition d'un tableau de joueur pour contenir les informations chaque participant
-            for(int i = 0;i< nbjoueurs; i++)
+            int score = 0;
+            for (int i = 0;i< nbjoueurs; i++)
             {
                 Console.Write($"Saisir le pseudo du joueur {i+1} : ");
                 string pseudo = Convert.ToString(Console.ReadLine());
-                joueurs[i] = new Joueur(i + 1, pseudo);///On remplit le tableau de joueurs avec les pseudos de le numéro de chaque joueur
+                joueurs[i] = new Joueur(i + 1, pseudo, score);///On remplit le tableau de joueurs avec les pseudos de le numéro de chaque joueur
             }
             Console.WriteLine("Les joueurs sont donc : ");
             foreach(var  joueur in joueurs)///Affichage de tous les joueurs
@@ -33,8 +34,8 @@ namespace Projet_Algo_1
             Console.Write("Saisir le temps désiré pour la partie en minutes (par exemple, 2 pour 2 minutes de partie): ");
             int tempstotal=int.Parse(Console.ReadLine())*60;
             Console.Write("Saisir le temps de jeu par joueur en minutes (par exemple, 1 pour 1 minute de jeu) :");
-            int tempsjoueur=int.Parse(Console.ReadLine())*60;   
-
+            int tempsjoueur=int.Parse(Console.ReadLine())*60;
+            
             Temps temps = new Temps(tempstotal, tempsjoueur);///Appel au constructeur naturel pour initialisation
             Plateau plateau = new Plateau(taille);
             ///Lancement de la partie 
