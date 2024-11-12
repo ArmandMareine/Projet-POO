@@ -6,6 +6,8 @@ namespace Projet_Algo_1
     {
         static void Main(string[] args)
         {
+            Dé teste = new Dé();
+            Console.WriteLine(teste.toString());
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             Console.Write("Saisir la langue désirée (Anglais ou Français) : ");///On définit la langue utilisée
             string langue = Convert.ToString(Console.ReadLine()); 
