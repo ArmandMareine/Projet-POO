@@ -21,18 +21,29 @@ namespace Projet_Algo_1
 
             ///Initialisation d'un dé carré à 6 faces
             faces_du_dé = new char[6];
-            for(int i = 0; i < 6; i++)
+
+            ///Initialisation de chaque faces du dé avec une lettre aléatoire de l'alphabet
+            for(int i = 0; i < faces_du_dé.Length; i++)
             {
                 int index = aléatoire.Next(0, lettres.Length);
                 faces_du_dé[i] = this.lettres[index];
             }
         }
+
+        /// <summary>
+        /// La fonction lancé permet de "lancer" le dé et de retourner une seule lettre qui sera considérer comme la lettre de la face supérieure qui apparaîtra sur le plateau
+        /// </summary>
+        /// <returns>Lettre de la face supérieur</returns>
         public char Lancé()
         {
             int index = aléatoire.Next(0, faces_du_dé.Length);
             return faces_du_dé[index];
         }
 
+        /// <summary>
+        /// Retourne une chaîne de caractère décrivant les faces du dé en séparant chacune des lettres des faces du dé par " , " sans mettre ce séparateur à la fin.
+        /// </summary>
+        /// <returns>Exemple de retour : Les faces du dé sont composées par les lettres : A , B , C , D , E , F</returns>
         public string toString()
         {
             string resultat = "Les faces du dé sont composées par les lettres : ";
