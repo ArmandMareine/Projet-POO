@@ -33,7 +33,7 @@ namespace Projet_Algo_1
         {
             try
             {
-                string[]lignes = File.ReadAllLines(cheminFichier); /// Lit toutes les lignes du fichier et les stock dans le tableau string
+                string[]lignes = File.ReadAllLines(cheminFichier); /// Lit toutes les lignes du fichier et les stockes dans le tableau string
 
                 foreach(string ligne in lignes)///Parcour chaque ligne dans le tableau de lignes
                 {

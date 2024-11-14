@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace Projet_Algo_1
 {
@@ -9,6 +10,7 @@ namespace Projet_Algo_1
             
             Dé teste = new Dé();
             Console.WriteLine(teste.toString());
+            string cheminFichier = @"MotsPossiblesFR.txt";
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             Console.Write("Saisir la langue désirée (Anglais ou Français) : ");///On définit la langue utilisée
             string langue = Convert.ToString(Console.ReadLine());
@@ -62,6 +64,27 @@ namespace Projet_Algo_1
                             Console.WriteLine("Hello ! ");
                             tempsjoueur--;
                             Thread.Sleep(1000);///Temps d'une seconde entre chaque itération
+                                               ///Utilisation de la méthode 1 pout le tri et la recherche du mot
+                            
+                            Tri_Fichier_2 Tri = new Tri_Fichier_2(cheminFichier, langue);
+                            List<string> mots = Tri.ChargerMots(cheminFichier);
+                            List<string> motstriés = Tri_Fichier_2.TriparFusion(mots);
+                            string motchercher = "Arbre";
+                            try
+                            {
+                                if (Tri_Fichier_2.RechercheDichotomique(mots, motchercher)==true)
+                                {
+                                    Console.WriteLine($"Le mot {motchercher} est bien dans le dictionnaire !");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Il n'y est pas");
+                                }
+                            }
+                            catch(FileNotFoundException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
                         }
 
 
