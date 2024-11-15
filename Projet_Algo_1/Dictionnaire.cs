@@ -29,24 +29,23 @@ namespace Projet_Algo_1
         /// Ajoute chaque mot du fichier à la liste Mots
         /// </summary>
         /// <param name="cheminFichier"></param>
-        public void ChargerMots(string cheminFichier)
+        public List<string> ChargerMots(string cheminFichier)
         {
+            string ligne;
             try
             {
-                string[]lignes = File.ReadAllLines(cheminFichier); /// Lit toutes les lignes du fichier et les stockes dans le tableau string
-
-                foreach(string ligne in lignes)///Parcour chaque ligne dans le tableau de lignes
+                StreamReader sr = new StreamReader(cheminFichier);
+                ligne = sr.ReadLine();
+                while (ligne != null)
                 {
-                    if (!string.IsNullOrEmpty(ligne))///Si la ligne est vide ou remplie d'espace, retourne False sinon retourne True
+                    string[] mots = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                    foreach(string mot in mots)
                     {
-                        string[] mots = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);///Sépare la ligne en mot en les prélévant un par un en détectant le séparateur (espace)
-
-                        foreach(string mot in mots)///Parcour chaque mot dans le tableau de mots
-                        {
-                            Mots.Add(mot.Trim());///Ajoute chaque mot du tableau mots dans la liste Mots en retirant les espaces superflues avant et après le mot
-                        }
+                        Mots.Add(mot.Trim());
                     }
+                    ligne = sr.ReadLine();
                 }
+                sr.Close();
             }
             catch (FileNotFoundException)///Exécute ce bloc si l'exception FileNotFoundException est relevée, soit que le fichier n'a pas été trouvé
             {
@@ -60,6 +59,7 @@ namespace Projet_Algo_1
             {
                 Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
             }
+            return Mots;
         }
 
         /// <summary>

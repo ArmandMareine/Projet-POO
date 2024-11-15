@@ -7,19 +7,47 @@ namespace Projet_Algo_1
     {
         static void Main(string[] args)
         {
-            
+            /*
             Dé teste = new Dé();
             Console.WriteLine(teste.toString());
+<<<<<<< HEAD
             string cheminFichier = @"C:/Users/LENOVO/Documents/ESILV/A2/S1/MODULES/ALGORITHME & POO/PROJET POO/Projet-POO/Projet_POO_1/bin/Debug/net8.0/MotsPossiblesFR.txt";
             Console.Write(cheminFichier);
+=======
+            /*
+            string Langue = "oui oui";
+            Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
+            List<string> list = test.ChargerMots(cheminFichier);
+            
+            foreach (string mot in list)
+            {
+                Console.WriteLine(mot);
+            }
+            */
+>>>>>>> 412e16c18be1f298e1bc99d50f5767d3449e1988
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
-            Console.Write("Saisir la langue désirée (Anglais ou Français) : ");///On définit la langue utilisée
+            string cheminFichier = "";
+            Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
             string langue = Convert.ToString(Console.ReadLine());
+            string EN = "Anglais";
+            string FR = "Français";
+            bool fr = FR.Equals(langue);
+            bool en = EN.Equals(langue);
             do
             {
                 Console.Write("Le format est incorrect ! Format attendu : Anglais ou Français  ");///En cas d'erreur de saisie, on recommence
                 langue = Convert.ToString(Console.ReadLine());
-            } while (langue != "Anglais" && langue != "Français");
+            } while(!fr && !en);
+            if (fr)
+            {
+                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesFR.txt";
+
+            }
+            else if(en)
+            {
+                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesEN.txt";
+            }
+            
             if (langue == "Anglais" || langue == "Français")
             {
                 Console.Write("Saisir le nombre de joueurs voulus (Attention, le minimum est 2 et le maximum 10) : ");///On saisit le nombre de joueurs

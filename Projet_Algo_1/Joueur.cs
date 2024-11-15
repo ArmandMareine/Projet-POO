@@ -11,6 +11,7 @@ namespace Projet_Algo_1
         private int Numero { get; set; }
         private string pseudo { get; set; }
         private int score { get; set; } 
+        private List<string> Motstrouvés { get; set; }
 
         public Joueur(int Numero, string pseudo, int score)
         {
@@ -22,7 +23,22 @@ namespace Projet_Algo_1
         {
             return $"Joueur {Numero} : {pseudo}";
         }
-        
-        
+        public bool ContientMot(string mot)///On teste si le mot passé en paramètre appartient déjà aux mots trouvés par le joueur pendant la partie
+        {
+            bool b = false;
+            foreach (string Mot in Motstrouvés)///On teste si le mot trouvé par l'utilisateur est déjà dans la liste contenant tous les mots trouvés
+            {
+                if (Mot == mot)
+                {
+                    b = true;
+                }
+            }
+            return b;
+        }
+        public void Add_Mot(string mot)///Ajoute le mot dans la liste des mots déjà trouvés par l'utilisateur 
+        {
+            Motstrouvés.Add(mot);   ///On ajoute le mot trouvé par le joueur à la liste de mots
+            Console.WriteLine($"Les mots trouvés sont : {Motstrouvés}");
+        }
     }
 }

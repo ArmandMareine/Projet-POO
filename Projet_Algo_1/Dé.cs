@@ -11,10 +11,45 @@ namespace Projet_Algo_1
         private Random aléatoire;
         private char[] lettres;
         private char[] faces_du_dé;
-        public Dé()
+        private string cheminTextes;
+
+
+        public Dé(string cheminTextes)
         {
+            cheminTextes = "";///Ajout du chemin du fichier 
             ///Initialisation de l'instance Random
             aléatoire = new Random();
+            string ligne;
+            List<string> Lettres = new List<string>();
+
+            try
+            {
+                StreamReader sr = new StreamReader(cheminTextes);
+                ligne = sr.ReadLine();
+                while (ligne != null)
+                {
+                    string[] mots = ligne.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string mot in mots)
+                    {
+                        Lettres.Add(mot.Trim());
+                    }
+                    ligne = sr.ReadLine();
+                }
+                sr.Close();
+            }
+            catch (FileNotFoundException)///Exécute ce bloc si l'exception FileNotFoundException est relevée, soit que le fichier n'a pas été trouvé
+            {
+                Console.WriteLine($"Erreur : Le fichier '{cheminTextes}' est introuvable.");
+            }
+            catch (UnauthorizedAccessException)///Exécute ce bloc si l'exception UnauthorizedAccessException est relevée, soit que l'accès n'est pas autorisé
+            {
+                Console.WriteLine($"Erreur : Accès non autorisé au fichier '{cheminTextes}'.");
+            }
+            catch (Exception ex)///Attrape toutes les autres exceptions
+            {
+                Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
+            }
+            
 
             ///Définir les lettres que les faces du dé peuvent prendre
             lettres = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
