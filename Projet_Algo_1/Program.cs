@@ -10,7 +10,8 @@ namespace Projet_Algo_1
             
             Dé teste = new Dé();
             Console.WriteLine(teste.toString());
-            string cheminFichier = @"MotsPossiblesFR.txt";
+            string cheminFichier = @"C:/Users/LENOVO/Documents/ESILV/A2/S1/MODULES/ALGORITHME & POO/PROJET POO/Projet-POO/Projet_POO_1/bin/Debug/net8.0/MotsPossiblesFR.txt";
+            Console.Write(cheminFichier);
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             Console.Write("Saisir la langue désirée (Anglais ou Français) : ");///On définit la langue utilisée
             string langue = Convert.ToString(Console.ReadLine());
