@@ -10,24 +10,29 @@ namespace Projet_Algo_1
 {
     public class Lettre
     {
-        public char Character {  get; set; } 
-        public int Valeur { get; set; }    
-        public int Nombre { get; set; }
-        public double Poids { get; set; }
+        private char character;
+        private int valeur;
+        private int nombre; 
+        private double poids;
 
         
         public Lettre(char character, int valeur, int nombre, double poids)
         {
-            this.Character = Character;
-            this.Valeur = Valeur;
-            this.Nombre = Nombre;
-            this.Poids = Poids;
+            this.character = character;
+            this.valeur = valeur;
+            this.nombre = nombre;
+            this.poids = poids;
             
         }
-        
+        public int Nombre
+        {
+            get { return nombre; }
+        }
+
+
         public string ToString()
         {
-            return $"{Character} (Valeur : {Valeur}, Nombre : {Nombre}, Poids : {Poids})";
+            return $"{character} (Valeur : {valeur}, Nombre : {nombre}, Poids : {poids})";
         }
 
         public List<Lettre> LectureFichier()
@@ -44,12 +49,12 @@ namespace Projet_Algo_1
                     string[] parties = ligne.Split(';', StringSplitOptions.RemoveEmptyEntries);
                     if(parties.Length == 4)///Un regroupement de quatre informations sur la lettre, on les sépare ici. On peut modifier par 3 si besoin
                     {
-                        Character = parties[0][0];
-                        Valeur = int.Parse(parties[1]);
-                        Nombre = int.Parse(parties[2]);
-                        Poids = double.Parse(parties[3]);///On divise les différentes parties
+                        character = parties[0][0];
+                        valeur = int.Parse(parties[1]);
+                        nombre = int.Parse(parties[2]);
+                        poids = double.Parse(parties[3]);///On divise les différentes parties
 
-                        lettres.Add(new Lettre(Character, Valeur, Nombre, Poids));
+                        lettres.Add(new Lettre(character, valeur, nombre, poids));
                     }
                     foreach (var lettre in lettres)
                     {

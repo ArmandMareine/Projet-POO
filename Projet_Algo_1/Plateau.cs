@@ -9,8 +9,8 @@ namespace Projet_Algo_1
 {
     internal class Plateau 
     {
-        public List<Dé> Dés {  get; set; }  
-        private int taille;
+        private List<Dé> Dés;
+        private int taille { get; }
         /*
         public Plateau(int taille)
         {
@@ -29,6 +29,8 @@ namespace Projet_Algo_1
         */
         public Plateau(int taille)
         {
+            
+            this.taille = taille;
             Dés = new List<Dé>(taille);
         }
         public void LancerTousLesDés(List<Lettre> lettres) 
@@ -43,20 +45,29 @@ namespace Projet_Algo_1
                 }
                 Console.WriteLine("\n\n\n");/// Espacement pour la clarité du plateau
             }
-            */
+            
             foreach (Lettre lettre in lettres)
             {
-                Dé dé = new Dé();
+                Dé dé = new Dé(lettres);
                 for(int  i = 0; i < lettres.Count; i++)
                 {
                     dé.AjouteFace(lettre);
                 }
                 Dés.Add(dé);
             }
+            */
         }
-        public string ToString()
+        public override string ToString()
         {
-            return string.Join("\n", Dés);
+            string result = "Plateau :\n";
+            foreach (Dé de in Dés)
+            {
+                result += de + "\n";
+                Console.Write(result + "\t");
+            }
+            Console.WriteLine("\n\n\n");
+            return result;
+        
         }
 
     }

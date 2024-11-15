@@ -10,10 +10,10 @@ namespace Projet_Algo_1
             /*
             Dé teste = new Dé();
             Console.WriteLine(teste.toString());
-<<<<<<< HEAD
+
             string cheminFichier = @"C:/Users/LENOVO/Documents/ESILV/A2/S1/MODULES/ALGORITHME & POO/PROJET POO/Projet-POO/Projet_POO_1/bin/Debug/net8.0/MotsPossiblesFR.txt";
             Console.Write(cheminFichier);
-=======
+
             /*
             string Langue = "oui oui";
             Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
@@ -24,7 +24,7 @@ namespace Projet_Algo_1
                 Console.WriteLine(mot);
             }
             */
->>>>>>> 412e16c18be1f298e1bc99d50f5767d3449e1988
+
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             string cheminFichier = "";
             Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
@@ -33,20 +33,26 @@ namespace Projet_Algo_1
             string FR = "Français";
             bool fr = FR.Equals(langue);
             bool en = EN.Equals(langue);
-            do
-            {
-                Console.Write("Le format est incorrect ! Format attendu : Anglais ou Français  ");///En cas d'erreur de saisie, on recommence
-                langue = Convert.ToString(Console.ReadLine());
-            } while(!fr && !en);
             if (fr)
             {
-                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesFR.txt";
+                cheminFichier = "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET POO\\Projet-POO\\Projet_POO_1\\bin\\Debug\\net8.0\\MotsPossiblesFR.txt";///On initialise le fichier français
 
             }
-            else if(en)
+            else if (en)
             {
-                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesEN.txt";
+                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesEN.txt";///On initialise le fichier anglais
             }
+            else
+            {
+                do
+                {
+                    Console.Write("Le format est incorrect ! Format attendu : Anglais ou Français  ");///En cas d'erreur de saisie, on recommence
+                    langue = Convert.ToString(Console.ReadLine());
+                } while (!fr && !en);
+            }
+            ///Test des conditions sur le fichier 
+            
+            
             
             if (langue == "Anglais" || langue == "Français")
             {
@@ -85,7 +91,10 @@ namespace Projet_Algo_1
                         Console.WriteLine($"C'est au tour du joueur {i + 1} : {joueurs[i]} de jouer !");///On donne le temps de jeu au joueur
                         Console.WriteLine($"Ton temps de jeu est de {tempsjoueur / 60} minutes");///On donne le temps de jeu au joueur 
                         Console.WriteLine("Voici ton plateau :");
-                        plateau.LancerTousLesDés();///Le plateau du joueur s'affiche à l'écran
+                        Lettre L = new Lettre(  )
+                        L.LectureFichier();
+                        plateau.LancerTousLesDés(lettres, taille);
+                        //Console.WriteLine(plateau.ToString());///Le plateau du joueur s'affiche à l'écran - PROBLEME 
                         while (tempsjoueur > 0)
                         {
                             ///Le jeu se déroule ici 
