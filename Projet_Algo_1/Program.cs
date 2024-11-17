@@ -24,7 +24,7 @@ namespace Projet_Algo_1
                 Console.WriteLine(mot);
             }
             */
-
+            string cheminFichier2 = "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET POO\\Projet-POO\\Lettres(2).txt";///On initialise le chemin pour le fichier Lettres
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             string cheminFichier = "";
             Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
@@ -91,8 +91,12 @@ namespace Projet_Algo_1
                         Console.WriteLine($"C'est au tour du joueur {i + 1} : {joueurs[i]} de jouer !");///On donne le temps de jeu au joueur
                         Console.WriteLine($"Ton temps de jeu est de {tempsjoueur / 60} minutes");///On donne le temps de jeu au joueur 
                         Console.WriteLine("Voici ton plateau :");
-                        Lettre L = new Lettre(  )
-                        L.LectureFichier();
+                        List<Lettre> lettres = Lettre.LectureFichier(cheminFichier2);
+                        Console.WriteLine("Lettres chargées depuis le fichier :");
+                        foreach (var lettre in lettres)
+                        {
+                            Console.WriteLine($"Caractère : {lettre.Caractere}, Valeur : {lettre.Valeur}, Nombre : {lettre.Nombre}, Poids : {lettre.Poids}");
+                        }
                         plateau.LancerTousLesDés(lettres, taille);
                         //Console.WriteLine(plateau.ToString());///Le plateau du joueur s'affiche à l'écran - PROBLEME 
                         while (tempsjoueur > 0)
