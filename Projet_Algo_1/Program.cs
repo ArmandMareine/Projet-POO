@@ -14,7 +14,7 @@ namespace Projet_Algo_1
             */
             string cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesFR.txt";
             Console.Write(cheminFichier+ "\n");
-            string Langue = "oui oui";
+            string Langue = "Français";
             Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
             List<string> list = test.ChargerMots(cheminFichier);
             Dictionary<char, int> compteur = test.TriParLettres();

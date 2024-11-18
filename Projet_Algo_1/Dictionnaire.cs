@@ -155,6 +155,7 @@ namespace Projet_Algo_1
         public string toString(Dictionary<char, int> compteur,Dictionary<int,int> compteur1)///Fonction à finir avec une méthode de tri par lettre et par longueur de mot
         {
             var res = new System.Text.StringBuilder();
+            res.AppendLine($"Le dictionnaire est {Langue}");
             foreach(var entry in compteur)
             {
                  res.AppendLine($"Lettre {entry.Key} : {entry.Value} mots");
