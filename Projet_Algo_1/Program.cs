@@ -7,26 +7,30 @@ namespace Projet_Algo_1
     {
         static void Main(string[] args)
         {
+
             /*
             Dé teste = new Dé();
             Console.WriteLine(teste.toString());
-
-            string cheminFichier = @"C:/Users/LENOVO/Documents/ESILV/A2/S1/MODULES/ALGORITHME & POO/PROJET POO/Projet-POO/Projet_POO_1/bin/Debug/net8.0/MotsPossiblesFR.txt";
-            Console.Write(cheminFichier);
-
-            /*
+            */
+            string cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesFR.txt";
+            Console.Write(cheminFichier+ "\n");
             string Langue = "oui oui";
             Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
             List<string> list = test.ChargerMots(cheminFichier);
-            
+            Dictionary<char, int> compteur = test.TriParLettres();
+            Dictionary<int , int> compteur1 = test.TriParLongueur();
+            string res = test.toString(compteur,compteur1);
+            Console.WriteLine(res);
+
+            /*
             foreach (string mot in list)
             {
                 Console.WriteLine(mot);
             }
             */
-            string cheminFichier2 = "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET POO\\Projet-POO\\Lettres(2).txt";///On initialise le chemin pour le fichier Lettres
+            string cheminFichier2 = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\Lettres.txt";///On initialise le chemin pour le fichier Lettres
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
-            string cheminFichier = "";
+            string cheminFichier3 = "";
             Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
             string langue = Convert.ToString(Console.ReadLine());
             string EN = "Anglais";
@@ -35,7 +39,7 @@ namespace Projet_Algo_1
             bool en = EN.Equals(langue);
             if (fr)
             {
-                cheminFichier = "C:\\Users\\LENOVO\\Documents\\ESILV\\A2\\S1\\MODULES\\ALGORITHME & POO\\PROJET POO\\Projet-POO\\Projet_POO_1\\bin\\Debug\\net8.0\\MotsPossiblesFR.txt";///On initialise le fichier français
+                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesFR.txt";///On initialise le fichier français
 
             }
             else if (en)
