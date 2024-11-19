@@ -12,7 +12,7 @@ namespace Projet_Algo_1
             Dé teste = new Dé();
             Console.WriteLine(teste.toString());
             */
-            string cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesFR.txt";
+            string cheminFichier = "../../../../MotsPossiblesFR.txt";
             Console.Write(cheminFichier+ "\n");
             string Langue = "Français";
             Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
@@ -21,6 +21,16 @@ namespace Projet_Algo_1
             Dictionary<int , int> compteur1 = test.TriParLongueur();
             string res = test.toString(compteur,compteur1);
             Console.WriteLine(res);
+            ///Test lecturefichier mots
+            List<string> tri = Tri_Fichier_2.TriparFusion(list);
+            Console.WriteLine(Tri_Fichier_2.RechercheDichotomique(tri,"Zoo"));
+            /*
+            foreach(string str in tri)
+            {
+                Console.WriteLine(string.Join(",", tri));
+            }
+            Console.WriteLine("Ok");
+            */
 
             /*
             foreach (string mot in list)
@@ -28,7 +38,7 @@ namespace Projet_Algo_1
                 Console.WriteLine(mot);
             }
             */
-            string cheminFichier2 = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\Lettres.txt";///On initialise le chemin pour le fichier Lettres
+            string cheminFichier2 = "../../../../Lettres.txt";///On initialise le chemin pour le fichier Lettres
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             string cheminFichier3 = "";
             Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
@@ -39,12 +49,12 @@ namespace Projet_Algo_1
             bool en = EN.Equals(langue);
             if (fr)
             {
-                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesFR.txt";///On initialise le fichier français
+                cheminFichier = "../../../../MotsPossiblesFR.txt";///On initialise le fichier français
 
             }
             else if (en)
             {
-                cheminFichier = "C:\\Users\\linji\\Desktop\\ESILV\\Cours A2\\POO\\Projet-POO\\MotsPossiblesEN.txt";///On initialise le fichier anglais
+                cheminFichier = "../../../../MotsPossiblesEN.txt";///On initialise le fichier anglais
             }
             else
             {
@@ -112,8 +122,7 @@ namespace Projet_Algo_1
                             Thread.Sleep(1000);///Temps d'une seconde entre chaque itération
                                                ///Utilisation de la méthode 1 pout le tri et la recherche du mot
                             
-                            Tri_Fichier_2 Tri = new Tri_Fichier_2(cheminFichier, langue);
-                            List<string> mots = Tri.ChargerMots(cheminFichier);
+                            /*
                             List<string> motstriés = Tri_Fichier_2.TriparFusion(mots);
                             string motchercher = "Arbre";
                             try
@@ -131,6 +140,7 @@ namespace Projet_Algo_1
                             {
                                 Console.WriteLine(ex.Message);
                             }
+                            */
                         }
 
 
