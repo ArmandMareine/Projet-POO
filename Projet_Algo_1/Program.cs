@@ -18,6 +18,7 @@ namespace Projet_Algo_1
             Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
             List<string> list = test.ChargerMots(cheminFichier);
             Dictionary<char, int> compteur = test.TriParLettres();
+            
             Dictionary<int , int> compteur1 = test.TriParLongueur();
             string res = test.toString(compteur,compteur1);
             Console.WriteLine(res);

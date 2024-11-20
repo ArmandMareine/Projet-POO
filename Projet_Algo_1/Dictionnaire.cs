@@ -148,19 +148,38 @@ namespace Projet_Algo_1
         }
 
 
+        /// <summary>
+        /// Trie le dictionnaire "compteur" par ordre alphabétique
+        /// </summary>
+        /// <param name="dict"></param>
+        /// <returns></returns>
+        static Dictionary<char, int> TrieDictionnaireLettre(Dictionary<char, int> dict)
+        {
+            return dict.OrderBy(entry => entry.Key).ToDictionary(entry => entry.Key, entry => entry.Value);
+        }
 
-
+        /// <summary>
+        /// Trie le dictionnaire par ordre de longueur de mot
+        /// </summary>
+        /// <param name="dict"></param>
+        /// <returns></returns>
+        static Dictionary<int, int> TrieDictionnaireLongueur(Dictionary<int, int> dict)
+        {
+            return dict.OrderBy(entry => entry.Key).ToDictionary(entry => entry.Key, entry => entry.Value);
+        }
 
 
         public string toString(Dictionary<char, int> compteur,Dictionary<int,int> compteur1)///Fonction à finir avec une méthode de tri par lettre et par longueur de mot
         {
             var res = new System.Text.StringBuilder();
+            var compteurTrié = TrieDictionnaireLettre(compteur);
+            var compteur1Trié = TrieDictionnaireLongueur(compteur1);
             res.AppendLine($"Le dictionnaire est {Langue}");
-            foreach(var entry in compteur)
+            foreach(var entry in compteurTrié)
             {
                  res.AppendLine($"Lettre {entry.Key} : {entry.Value} mots");
             }
-            foreach(var entry in compteur1)
+            foreach(var entry in compteur1Trié)
             {
                 res.AppendLine($"Mots de longueur {entry.Key} : {entry.Value} mots");
             }
