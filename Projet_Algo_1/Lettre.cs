@@ -13,15 +13,15 @@ namespace Projet_Algo_1
         private char caractere;
         private int valeur;
         private int nombre; 
-        private double poids;
+        //private double poids; NEUTRALISE car pas encore fonctionnel 
 
         
-        public Lettre(char caractere, int valeur, int nombre, double poids)///Constrcuteur naturel de la classe Lettre
+        public Lettre(char caractere, int valeur, int nombre)///Constrcuteur naturel de la classe Lettre
         {
             this.caractere = caractere;
             this.valeur = valeur;
             this.nombre = nombre;
-            this.poids = poids;
+            //this.poids = poids;
             
         }
         ///Propriétés en Get pour les attributs
@@ -33,65 +33,65 @@ namespace Projet_Algo_1
         {
             get { return valeur; }
         }
+        /*
         public double Poids
         {
             get { return poids; }
         }
+        */
         public char Caractere
         {
             get { return caractere; }   
         }
         public string ToString()
         {
-            return $"{caractere} (Valeur : {valeur}, Nombre : {nombre}, Poids : {poids})";
+            return $"{caractere} (Valeur : {valeur}, Nombre : {nombre})";
         }
-
+        
         public static List<Lettre> LectureFichier(string cheminFichier2)
         {
             if (!File.Exists(cheminFichier2))
             {
                 Console.WriteLine("Le fichier n'existe pas : " + cheminFichier2);
-                
+                return new List<Lettre>(); /// Retourne une liste vide si le fichier est absent
             }
-            List<Lettre> lettres = new List<Lettre>();///On initialise la liste de départ
-            string ligne;
+
+            List<Lettre> lettres = new List<Lettre>(); /// Initialise la liste de lettres
             try
             {
-                StreamReader sr = new StreamReader(cheminFichier2);
-                ligne = sr.ReadLine();
-                while (ligne != null)
+                using (StreamReader sr = new StreamReader(cheminFichier2))
                 {
-                    string[] parties = ligne.Split(';', StringSplitOptions.RemoveEmptyEntries);
-                    if(parties.Length == 4)///Un regroupement de quatre informations sur la lettre, on les sépare ici. On peut modifier par 3 si besoin
+                    string ligne;
+                    while ((ligne = sr.ReadLine()) != null)
                     {
-                        char caractere = parties[0][0];
-                        int valeur = int.Parse(parties[1]);
-                        int nombre = int.Parse(parties[2]);
-                        double poids = double.Parse(parties[3]);///On divise les différentes parties
+                        string[] parties = ligne.Split(';', StringSplitOptions.RemoveEmptyEntries);
+                        if (parties.Length == 3) /// Vérifie qu'il y a bien 3 éléments par ligne
+                        {
+                            char caractere = parties[0][0];
+                            int valeur = int.Parse(parties[1]);
+                            int nombre = int.Parse(parties[2]);
 
-                        lettres.Add(new Lettre(caractere, valeur, nombre, poids));///On ajoute un nouvel élément Lettre à la liste 
+                            /// Ajoute la lettre si tout est valide
+                            lettres.Add(new Lettre(caractere, valeur, nombre));
+                        }
                     }
-                    foreach (var lettre in lettres)
-                    {
-                        Console.WriteLine(lettre);  
-                    }
-                    ligne = sr.ReadLine();
                 }
-                sr.Close();
+
+                /// Affiche toutes les lettres pour vérification
+                Console.WriteLine("Lettres importées :");
+                foreach (var lettre in lettres)
+                {
+                    Console.WriteLine(lettre.ToString());
+                }
             }
-            catch (FileNotFoundException)///Exécute ce bloc si l'exception FileNotFoundException est relevée, soit que le fichier n'a pas été trouvé
-            {
-                Console.WriteLine($"Erreur : Le fichier '{cheminFichier2}' est introuvable.");
-            }
-            catch (UnauthorizedAccessException)///Exécute ce bloc si l'exception UnauthorizedAccessException est relevée, soit que l'accès n'est pas autorisé
-            {
-                Console.WriteLine($"Erreur : Accès non autorisé au fichier '{cheminFichier2}'.");
-            }
-            catch (Exception ex)///Attrape toutes les autres exceptions
+            catch (Exception ex)
             {
                 Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
             }
+
             return lettres;
         }
+
+
     }
 }

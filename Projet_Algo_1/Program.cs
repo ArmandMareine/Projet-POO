@@ -7,11 +7,6 @@ namespace Projet_Algo_1
     {
         static void Main(string[] args)
         {
-
-            /*
-            Dé teste = new Dé();
-            Console.WriteLine(teste.toString());
-            */
             string cheminFichier = "../../../../MotsPossiblesFR.txt";
             Console.Write(cheminFichier+ "\n");
             string Langue = "Français";
@@ -24,21 +19,42 @@ namespace Projet_Algo_1
             ///Test lecturefichier mots
             List<string> tri = Tri_Fichier_2.TriparFusion(list);
             Console.WriteLine(Tri_Fichier_2.RechercheDichotomique(tri,"Zoo"));
+            int taille1 = 4;
+            string cheminFichier2 = "../../../../lettres.txt";
+            List<Lettre> lettres = Lettre.LectureFichier(cheminFichier2);
+            Plateau plateau = new Plateau(taille1);
+            plateau.InitialiserDés(lettres,taille1);
+            plateau.LancerTousLesDés(4);
+            /// Affiche les lettres importées
+            if (lettres.Count > 0)
+            {
+                Console.WriteLine("Lettres importées avec succès !");
+            }
+            else
+            {
+                Console.WriteLine("Aucune lettre n'a été importée.");
+            }
+
+
+            
+
+
+            ///Jeu codé
             /*
-            foreach(string str in tri)
+            foreach (string str in tri)
             {
                 Console.WriteLine(string.Join(",", tri));
             }
             Console.WriteLine("Ok");
-            */
+            
 
-            /*
+            
             foreach (string mot in list)
             {
                 Console.WriteLine(mot);
             }
             */
-            string cheminFichier2 = "../../../../Lettres.txt";///On initialise le chemin pour le fichier Lettres
+           ///On initialise le chemin pour le fichier Lettres
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             string cheminFichier3 = "";
             Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
@@ -70,6 +86,7 @@ namespace Projet_Algo_1
             
             if (langue == "Anglais" || langue == "Français")
             {
+                
                 Console.Write("Saisir le nombre de joueurs voulus (Attention, le minimum est 2 et le maximum 10) : ");///On saisit le nombre de joueurs
                 int nbjoueurs = int.Parse(Console.ReadLine());
                 Joueur[] joueurs = new Joueur[nbjoueurs];///Définition d'un tableau de joueur pour contenir les informations chaque participant
@@ -93,10 +110,10 @@ namespace Projet_Algo_1
                 int tempsjoueur = int.Parse(Console.ReadLine()) * 60;
 
                 Temps temps = new Temps(tempstotal, tempsjoueur);///Appel au constructeur naturel pour initialisation
-                Plateau plateau = new Plateau(taille);
+                //Plateau plateau = new Plateau(taille);
                 ///Lancement de la partie 
                 Console.WriteLine("La partie commence ! ");
-
+                
                 while (tempstotal > 0)///Tant que le temps n'est pas écoulé, la partie continue
                 {
 
@@ -105,16 +122,17 @@ namespace Projet_Algo_1
                         Console.WriteLine($"C'est au tour du joueur {i + 1} : {joueurs[i]} de jouer !");///On donne le temps de jeu au joueur
                         Console.WriteLine($"Ton temps de jeu est de {tempsjoueur / 60} minutes");///On donne le temps de jeu au joueur 
                         Console.WriteLine("Voici ton plateau :");
-                        List<Lettre> lettres = Lettre.LectureFichier(cheminFichier2);
+                        //List<Lettre> lettres = Lettre.LectureFichier(cheminFichier2);
                         Console.WriteLine("Lettres chargées depuis le fichier :");
                         foreach (var lettre in lettres)
                         {
-                            Console.WriteLine($"Caractère : {lettre.Caractere}, Valeur : {lettre.Valeur}, Nombre : {lettre.Nombre}, Poids : {lettre.Poids}");
+                            Console.WriteLine($"Caractère : {lettre.Caractere}, Valeur : {lettre.Valeur}, Nombre : {lettre.Nombre}");
                         }
-                        plateau.LancerTousLesDés(lettres, taille);
+                        //plateau.LancerTousLesDés(lettres, taille);
                         //Console.WriteLine(plateau.ToString());///Le plateau du joueur s'affiche à l'écran - PROBLEME 
                         while (tempsjoueur > 0)
                         {
+                            
                             ///Le jeu se déroule ici 
 
                             Console.WriteLine("Hello ! ");
@@ -122,11 +140,12 @@ namespace Projet_Algo_1
                             Thread.Sleep(1000);///Temps d'une seconde entre chaque itération
                                                ///Utilisation de la méthode 1 pout le tri et la recherche du mot
                             
-                            /*
-                            List<string> motstriés = Tri_Fichier_2.TriparFusion(mots);
+                            
+                            //List<string> motstriés = Tri_Fichier_2.TriparFusion(mots);
                             string motchercher = "Arbre";
                             try
                             {
+                                /*
                                 if (Tri_Fichier_2.RechercheDichotomique(mots, motchercher)==true)
                                 {
                                     Console.WriteLine($"Le mot {motchercher} est bien dans le dictionnaire !");
@@ -135,22 +154,28 @@ namespace Projet_Algo_1
                                 {
                                     Console.WriteLine("Il n'y est pas");
                                 }
+                                */
                             }
                             catch(FileNotFoundException ex)
                             {
                                 Console.WriteLine(ex.Message);
                             }
-                            */
+                            
                         }
-
+                    
 
 
                     }
-                    tempstotal--;
-                    Thread.Sleep(tempsjoueur);///On laisse le temps au joueur de jouer avant d'afficher un nouveau plateau
+                    //tempstotal--;
+                    //Thread.Sleep(tempsjoueur);///On laisse le temps au joueur de jouer avant d'afficher un nouveau plateau
+                    
                 }
-            }
             
+            }
+                
+           
         }
+            
     }
+   
 }
