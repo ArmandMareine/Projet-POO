@@ -11,27 +11,19 @@ namespace Projet_Algo_1
         private Random aléatoire;
         private List<string> lettres; /// Les 6 lettres du dé
         private string faceVisible;   /// La lettre visible après un lancer
-
-
+        private List<string> faces_du_dé;
         public Dé(List<string> lettres)///Constructeur naturel
         {
             this.lettres = lettres;
             faceVisible = lettres[0];
 
-            /*
-            ///Définir les lettres que les faces du dé peuvent prendre
-            lettres = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-
-            ///Initialisation d'un dé carré à 6 faces
-            faces_du_dé = new char[6];
-
             ///Initialisation de chaque faces du dé avec une lettre aléatoire de l'alphabet
-            for(int i = 0; i < faces_du_dé.Length; i++)
+            for(int i = 0; i < faces_du_dé.Count; i++)
             {
-                int index = aléatoire.Next(0, lettres.Length);
-                faces_du_dé[i] = this.lettres[index];
+                int index = aléatoire.Next(0, lettres.Count);
+                faces_du_dé[i] = lettres[index];
             }
-            */
+            
         }
 
         /// <summary>
@@ -50,18 +42,18 @@ namespace Projet_Algo_1
         /// </summary>
         /// <returns>Exemple de retour : Les faces du dé sont composées par les lettres : A , B , C , D , E , F</returns>
 
-        /*
+        
         public string toString()
         {
             string resultat = "Les faces du dé sont composées par les lettres : ";
-            for (int i = 0; i < faces_du_dé.Length - 1; i++)
+            for (int i = 0; i < faces_du_dé.Count - 1; i++)
             {
                 resultat += faces_du_dé[i] + " , ";
             }
-            resultat += faces_du_dé[faces_du_dé.Length - 1];
+            resultat += faces_du_dé[faces_du_dé.Count - 1];
             return resultat;
         }
-        */
+        
         public string ToString()
         {
             return $"Dé : {string.Join(", ", lettres)} | Face visible : {faceVisible}";///On affiche le dé et la face visible du dé 

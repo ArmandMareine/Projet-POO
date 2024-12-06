@@ -62,7 +62,7 @@ namespace Projet_Algo_1
                 {
                     Console.Write("Le format est incorrect ! Format attendu : Anglais ou Français  ");///En cas d'erreur de saisie, on recommence
                     langue = Convert.ToString(Console.ReadLine());
-                } while (!fr && !en);
+                } while (langue != "Anglais" || langue != "Français");
             }
             ///Test des conditions sur le fichier 
             
