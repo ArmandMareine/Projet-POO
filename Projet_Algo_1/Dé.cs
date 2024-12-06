@@ -25,7 +25,7 @@ namespace Projet_Algo_1
         {
             faceVisible = faces[r.Next(faces.Count)]; /// Tire une face au hasard
         }
-        
+         
         public override string ToString()
         {
             return faceVisible.Caractere.ToString(); /// Affiche uniquement le caractère de la face visible

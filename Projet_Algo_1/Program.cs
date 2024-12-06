@@ -54,13 +54,13 @@ namespace Projet_Algo_1
 
 
 
-
+            
             ////////////////////////////////////////////////////////////////////////
             //Fin de la zone de test : Début du jeu 
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             ///Définition des chemins fichiers à rajouter (le lettre)
             ///Défintion des timers
-            
+            /*
             Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
             string langue = Convert.ToString(Console.ReadLine());
             string EN = "Anglais";
@@ -84,7 +84,7 @@ namespace Projet_Algo_1
                     langue = Convert.ToString(Console.ReadLine());
                 } while (!fr && !en);
             }///Test de la bonne saisie des langues 
-
+            
             if (langue == "Anglais" || langue == "Français")
             {
                 Console.Write("Saisir le nombre de joueurs voulus (Attention, le minimum est 2 et le maximum 10) : ");///On saisit le nombre de joueurs
@@ -155,16 +155,19 @@ namespace Projet_Algo_1
                         Console.WriteLine("Temps total du jeu du Boggle écoulé ! ");
                         break;
                     }
-
+                    
 
                 }
+           
                 Console.WriteLine("Fin de la partie ! Merci ! ");///Affichage fin de partie 
 
-
-            }   
+            
+            }  
+            */
            
         }
             
     }
    
 }
+

@@ -12,22 +12,7 @@ namespace Projet_Algo_1
     {
         private List<Dé> Dés;
         private int taille { get; }
-        /*
-        public Plateau(int taille)
-        {
-            this.taille = taille; /// Initialisation de la taille entrée par l'utilisateur en tant que taille de la classe plateau
-            plateau = new Dé[taille, taille];/// Initialise le plateau en tant que matrice carré de Dé de taille : taille * taille
-
-            for (int i = 0; i < taille; i++)
-            {
-                for (int j = 0; j < taille; j++)
-                {
-                    plateau[i, j] = new Dé(); /// Initialisation de chaque case de la matrice en tant qu'objet de la classe Dé
-                }
-            }
-
-        }
-        */
+        
         public Plateau(int taille)
         {
             
