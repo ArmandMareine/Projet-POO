@@ -34,67 +34,96 @@ namespace Projet_Algo_1
             this.taille = taille;
             Dés = new List<Dé>(taille);
         }
-        public void LancerTousLesDés(List<Lettre> lettres, int taille) ///Construction et affichage du plateau 
+        public void InitialiserDés(List<Lettre> lettres,int taille)///On initilise les dés 
         {
-            Console.WriteLine("Le plateau : ");
+            Dés = new List<Dé>();
+            int indexlettres = 0;
+            int nbdedés = taille * taille;
+
+            if (lettres.Count < 6)///On vérifie que l'on a le bon nombre de lettres pour créer le dé
+            {
+                Console.WriteLine("Il n'y a pas assez de lettres pour créer le dé");
+            }
+            while(Dés.Count < nbdedés)
+            {
+                List<Lettre> faces = new List<Lettre>();
+                for(int i=0; i < 6; i++)
+                {
+                    if (indexlettres >= lettres.Count)
+                    {
+                        indexlettres = 0;
+                    }
+                    faces.Add(lettres[indexlettres]);
+                    indexlettres++;
+                }
+                Dés.Add(new Dé(faces)); ///On crée un dé à six faces avec donc six lettres
+            }
+            if (Dés.Count == 0)
+            {
+                Console.WriteLine("Erreur. Le dé n'a pas pu être créé");
+            }
+            else
+            {
+                Console.WriteLine("Les dés sont initialisés avec succès ! ");
+            }
+            
+        }
+       
+        public void LancerTousLesDés(int taille)
+        {
+            Console.WriteLine("Le plateau :");
+            Random random = new Random();
+            Dé[,] plateau = new Dé[taille, taille];
             int index = 0;
-            string res = "";
+
+            /// Remplissage du plateau
             for (int i = 0; i < taille; i++)
             {
                 for (int j = 0; j < taille; j++)
                 {
-                    /// Vérifie si nous avons encore des dés à afficher
                     if (index < Dés.Count)
                     {
-                        res += Dés[index].ToString() + "\t"; /// Ajoute le dé et une tabulation pour espacement
-                        Console.Write(res);
-                        index++; /// Incrémente l'index pour passer au dé suivant
+                        plateau[i, j] = Dés[index];
+                        plateau[i, j].Lance(random); /// Lancer du dé avec le Random
+                        index++;
                     }
                     else
                     {
-                        res += "[ ]\t"; /// Si aucun dé n'est disponible, afficher une case vide
+                        plateau[i, j] = null; /// Case vide
                     }
-
                 }
-                Console.WriteLine("\n\n\n");///On intègre un espacement suffisant
-                //result += "\n"; // Saut de ligne à la fin de chaque rangée
             }
 
-            
-
-
-            /*
+            /// Affichage du plateau de jeu 
             for (int i = 0; i < taille; i++)
             {
                 for (int j = 0; j < taille; j++)
                 {
-                    char résultat = plateau[i, j].Lancé(); /// Parcour chaque case du plateau et lance le dé puis initialise la variable résultat avec la lettre obtenue avec le lancé de Dé
-                    Console.Write(résultat + "\t"); /// Affichage du plateau
+                    if (plateau[i, j] != null)
+                    {
+                        Console.Write(plateau[i, j].ToString() + "\t");///On affiche chaque élément du plateau
+                    }
+                    else
+                    {
+                        Console.Write("[ ]\t");
+                    }
                 }
-                Console.WriteLine("\n\n\n");/// Espacement pour la clarité du plateau
+                Console.WriteLine();
             }
-            
-            foreach (Lettre lettre in lettres)
-            {
-                Dé dé = new Dé(lettres);
-                for(int  i = 0; i < lettres.Count; i++)
-                {
-                    dé.AjouteFace(lettre);
-                }
-                Dés.Add(dé);
-            }
-            */
         }
-        public override string ToString()
+
+        
+        public override string ToString()///Méthode To string pour l'affichage du plateau de jeu
         {
             string result = "Plateau :\n";
             
             foreach (Dé de in Dés)
             {
-                result += de + "\n";
-                Console.Write(result + "\t");
+                result += de ;
+                Console.Write(result);
+                
             }
-            Console.WriteLine("\n\n\n");
+            Console.WriteLine("\n");
             return result;
         
         }
