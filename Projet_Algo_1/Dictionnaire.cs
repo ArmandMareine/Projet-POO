@@ -159,7 +159,7 @@ namespace Projet_Algo_1
         }
 
         /// <summary>
-        /// Trie le dictionnaire par ordre de longueur de mot
+        /// Trie le dictionnaire par ordre de longueur de mot 
         /// </summary>
         /// <param name="dict"></param>
         /// <returns></returns>
