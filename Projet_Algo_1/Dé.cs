@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Projet_Algo_1
 {
@@ -19,6 +20,11 @@ namespace Projet_Algo_1
 
             faces = lettres;
             faceVisible = faces[0]; /// Initialise avec la première lettre
+        }
+        public Lettre FaceVisble
+        {
+            get { return faces[1]; }
+            set { faces[1] = value; }
         }
 
         public void Lance(Random r)
