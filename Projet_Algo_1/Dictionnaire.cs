@@ -63,7 +63,7 @@ namespace Projet_Algo_1
             {
                 Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
             }
-            return Mots;
+            return Mots  ;
         }
 
 
