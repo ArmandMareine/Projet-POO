@@ -11,13 +11,14 @@ namespace Projet_Algo_1
         private int Numero { get; set; }
         private string pseudo { get; set; }
         private int score { get; set; } 
-        private List<string> Motstrouvés { get; set; }
+        private HashSet<string> Motstrouvés { get; set; }
 
         public Joueur(int Numero, string pseudo, int score)
         {
             this.Numero = Numero;
             this.pseudo = pseudo;
             this.score = score;
+            Motstrouvés = new HashSet<string>();
         }
         public string ToString()
         {
@@ -39,6 +40,11 @@ namespace Projet_Algo_1
         {
             Motstrouvés.Add(mot);   ///On ajoute le mot trouvé par le joueur à la liste de mots
             Console.WriteLine($"Les mots trouvés sont : {Motstrouvés}");
+        }
+
+        public void AjouterAuScore(string mot)
+        {
+
         }
     }
 }

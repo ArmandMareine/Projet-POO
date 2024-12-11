@@ -21,28 +21,38 @@ namespace Projet_Algo_1
         }
         public void InitialiserDés(List<Lettre> lettres,int taille)///On initilise les dés 
         {
-            Dés = new List<Dé>();
-            int indexlettres = 0;
-            int nbdedés = taille * taille;
-
             if (lettres.Count < 6)///On vérifie que l'on a le bon nombre de lettres pour créer le dé
             {
                 Console.WriteLine("Il n'y a pas assez de lettres pour créer le dé");
+                return;
             }
+
+            List<Lettre> facesPonderees = new List<Lettre>();
+            foreach (var lettre in lettres)
+            {
+                for(int i = 0; i < lettre.Nombre; i++)
+                {
+                    facesPonderees.Add(lettre);
+                }
+            }
+
+            Dés = new List<Dé>();
+            int indexlettres = 0;
+            int nbdedés = taille * taille;
+            Random random = new Random();
+            
             while(Dés.Count < nbdedés)
             {
                 List<Lettre> faces = new List<Lettre>();
+
                 for(int i=0; i < 6; i++)
                 {
-                    if (indexlettres >= lettres.Count)
-                    {
-                        indexlettres = 0;
-                    }
-                    faces.Add(lettres[indexlettres]);
-                    indexlettres++;
+                    Lettre face = facesPonderees[random.Next(facesPonderees.Count)];
+                    faces.Add(face);
                 }
-                Dés.Add(new Dé(faces)); ///On crée un dé à six faces avec donc six lettres
+                Dés.Add(new Dé(faces)); ///On crée un dé à six faces avec six lettres
             }
+
             if (Dés.Count == 0)
             {
                 Console.WriteLine("Erreur. Le dé n'a pas pu être créé");
@@ -56,7 +66,7 @@ namespace Projet_Algo_1
        
         public void LancerTousLesDés(int taille)
         {
-            Console.WriteLine("Le plateau :");
+            Console.WriteLine("Plateau du Jeu :");
             Random random = new Random();
             Dé[,] plateau = new Dé[taille, taille];
             int index = 0;
@@ -82,6 +92,7 @@ namespace Projet_Algo_1
             /// Affichage du plateau de jeu 
             for (int i = 0; i < taille; i++)
             {
+                Console.Write("| ");
                 for (int j = 0; j < taille; j++)
                 {
                     if (plateau[i, j] != null)
@@ -90,10 +101,11 @@ namespace Projet_Algo_1
                     }
                     else
                     {
-                        Console.Write("[ ]\t");
+                        Console.Write("[ ]".PadRight(4) + "| ");
                     }
                 }
                 Console.WriteLine();
+                Console.Write(new string('-', taille * 6));
             }
         }
 
