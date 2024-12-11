@@ -70,13 +70,13 @@ namespace Projet_Algo_1
             {
                 for (int j = 0; j < colonnes; j++)
                 {
-                    plateauChars[i, j] = plateau[i, j].faceVisible;
+                    plateauChars[i, j] = FaceVisible.plateau[i, j];
                 }
             }
             ///On extrait le premier caractère 
             if (mot != null)
             {
-                char caractère1=mot[0];
+                char caractère1 = mot[0];
             }
             ///Parcourons la matrice à la recherche de la première lettre 
             for(int i=0;  i<plateau.GetLength(0); i++)
@@ -85,6 +85,7 @@ namespace Projet_Algo_1
                 {
                     if (plateauChars[i,j] == mot[0])
                     {
+
                           ///Le premier caractère est trouvé, il faut parcourir les éléments proches 
                           
                     }

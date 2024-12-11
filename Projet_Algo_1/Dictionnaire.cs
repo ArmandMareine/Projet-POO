@@ -30,41 +30,52 @@ namespace Projet_Algo_1
 
 
         /// <summary>
-        /// Ajoute chaque mot du fichier à la liste Mots
+        /// Charge les mots d'un fichier dans la liste des mots du dictionnaire.
         /// </summary>
-        /// <param name="cheminFichier"></param>
+        /// <param name="cheminFichier">Chemin du fichier contenant les mots.</param>
+        /// <returns>La liste des mots chargés.</returns>
+        /// <example>
+        /// Dictionnaire dictionnaire = new Dictionnaire("cheminFichier.txt", "Français");
+        /// List<string> mots = dictionnaire.ChargerMots("cheminFichier.txt");
+        /// </example>
+
         public List<string> ChargerMots(string cheminFichier)
         {
-            string ligne;
             try
             {
-                StreamReader sr = new StreamReader(cheminFichier);
-                ligne = sr.ReadLine();
-                while (ligne != null)
+                using (StreamReader sr = new StreamReader(cheminFichier))
                 {
-                    string[] mots = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                    foreach(string mot in mots)
+                    string ligne = sr.ReadLine();
+                    while (ligne != null)
                     {
-                        Mots.Add(mot.Trim());
+                        string[] mots = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                        foreach (string mot in mots)
+                        {
+                            if (mot.All(char.IsLetter)) // Vérifie que le mot ne contient que des lettres
+                            {
+                                Mots.Add(mot.Trim());
+                            }
+                        }
+                        ligne = sr.ReadLine();
                     }
-                    ligne = sr.ReadLine();
                 }
-                sr.Close();
             }
-            catch (FileNotFoundException)///Exécute ce bloc si l'exception FileNotFoundException est relevée, soit que le fichier n'a pas été trouvé
+            catch (FileNotFoundException)
             {
                 Console.WriteLine($"Erreur : Le fichier '{cheminFichier}' est introuvable.");
             }
-            catch (UnauthorizedAccessException)///Exécute ce bloc si l'exception UnauthorizedAccessException est relevée, soit que l'accès n'est pas autorisé
+            catch (UnauthorizedAccessException)
             {
                 Console.WriteLine($"Erreur : Accès non autorisé au fichier '{cheminFichier}'.");
             }
-            catch(Exception ex)///Attrape toutes les autres exceptions
+            catch (Exception ex)
             {
                 Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
             }
-            return Mots  ;
+
+            return Mots;
         }
+
 
 
 
