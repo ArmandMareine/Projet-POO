@@ -67,12 +67,23 @@ namespace Projet_Algo_1
                         string[] parties = ligne.Split(';', StringSplitOptions.RemoveEmptyEntries);
                         if (parties.Length == 3) /// Vérifie qu'il y a bien 3 éléments par ligne
                         {
-                            char caractere = parties[0][0];
-                            int valeur = int.Parse(parties[1]);
-                            int nombre = int.Parse(parties[2]);
-
-                            /// Ajoute la lettre si tout est valide
-                            lettres.Add(new Lettre(caractere, valeur, nombre));
+                            try
+                            {
+                                char caractere = parties[0][0]; // Premier caractère de la chaîne
+                                int valeur = int.Parse(parties[1]);
+                                int nombre = int.Parse(parties[2]);
+                                
+                                /// Ajoute la lettre si tout est valide
+                                lettres.Add(new Lettre(caractere, valeur, nombre));
+                            }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine($"Format incorrect dans la ligne : {ligne}");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Ligne mal formée : {ligne}");
                         }
                     }
                 }
@@ -91,7 +102,5 @@ namespace Projet_Algo_1
 
             return lettres;
         }
-
-
     }
 }
