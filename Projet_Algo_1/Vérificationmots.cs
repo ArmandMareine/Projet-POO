@@ -9,8 +9,9 @@ namespace Projet_Algo_1
     public class VérificationMots
     {
 
-        private Dé[,] plateau;
+        private Dé[,] plateau { get; set; }
         private List<string> motstrouvés;
+        
         private string langue;
         private int scoreJoueur;
         private string cheminfichier1;
@@ -25,6 +26,8 @@ namespace Projet_Algo_1
             this.scoreJoueur = scoreJoueur;
             cheminfichier1 = "../../../../MotsPossiblesFR.txt";
             cheminfichier2 = "../../../../MotsPossiblesEN.txt";
+            
+
         }
 
         /*
@@ -66,31 +69,92 @@ namespace Projet_Algo_1
             int colonnes = plateau.GetLength(1);
             ///On assure une conversion en plateau de char
             char[,] plateauChars = new char[lignes, colonnes];
+            
             for (int i = 0; i < lignes; i++)
             {
                 for (int j = 0; j < colonnes; j++)
                 {
-                    plateauChars[i, j] = FaceVisible.plateau[i, j];
+                    plateauChars[i, j] = plateau[i, j].FaceVisible.Caractere; /// Accède à la lettre visible
                 }
             }
             ///On extrait le premier caractère 
             if (mot != null)
             {
                 char caractère1 = mot[0];
+
             }
+            ///On initialise les directions possibles autour d'une case sous la forme d'un tableau. 
+                 
             ///Parcourons la matrice à la recherche de la première lettre 
             for(int i=0;  i<plateau.GetLength(0); i++)
             {
                 for (int j=0; j<plateau.GetLength(1); j++)
                 {
-                    if (plateauChars[i,j] == mot[0])
+                    if (plateauChars[i,j] == mot[i])
                     {
+                        if (i > 0 && i < plateauChars.GetLength(0) && j>0 && j < plateauChars.GetLength(0))
+                        {
+                            if (plateauChars[i-1,j]== mot[1])
+                            {
 
-                          ///Le premier caractère est trouvé, il faut parcourir les éléments proches 
+                                b = true;
+                                continue;
+                            }
+                            else if (plateauChars[i-1,j-1]== mot[1])
+                            {
+
+                                b = true;
+                                continue;
+                            }
+                            else if (plateauChars[i - 1, j + 1] == mot[1])
+                            {
+
+                                b = true;
+                                continue;
+                            }
+                            else if (plateauChars[i, j - 1] == mot[1])
+                            {
+
+                                b = true;
+                                continue;
+                            }
+                            else if (plateauChars[i, j + 1] == mot[1])
+                            {
+
+                                b = true;
+                                continue;
+                            }
+                            else if (plateauChars[i + 1, j + 1] == mot[1])
+                            {
+
+                                b = true;
+                                continue;
+                            }
+                            else if (plateauChars[i + 1, j] == mot[1])
+                            {
+
+                                b = true;
+                                continue;
+                            }
+                            else if (plateauChars[i + 1, j + 1] == mot[1])
+                            {
+
+                                b = true;
+                                continue;
+                            }
+                            else
+                            {
+                                b = false;
+                                
+                            }
+                        }
+                        ///On va désormais parcourir chaque case autour de la case actuelle. 
+                        
                           
                     }
                 }
             }
+            return b;
         }
         public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)///Vérification de l'appartenance au mot dans le dictionnaire français ou anglais
         {

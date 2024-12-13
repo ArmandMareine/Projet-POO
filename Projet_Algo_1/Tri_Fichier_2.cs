@@ -149,7 +149,7 @@ namespace Projet_Algo_1
                 {
                     return true;
                 }
-                else if (comparaison < 0) // Rechercher dans la moitié supérieure
+                else if (comparaison < 0) /// Rechercher dans la moitié supérieure
                 {
                     debut = milieu + 1;
                 }

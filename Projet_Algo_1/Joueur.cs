@@ -12,6 +12,7 @@ namespace Projet_Algo_1
         private string pseudo { get; set; }
         private int score { get; set; } 
         private HashSet<string> Motstrouvés { get; set; }
+        private Dictionary<char, int> valeurLettres;
 
         public Joueur(int Numero, string pseudo, int score)
         {
@@ -19,11 +20,14 @@ namespace Projet_Algo_1
             this.pseudo = pseudo;
             this.score = score;
             Motstrouvés = new HashSet<string>();
+            valeurLettres = lettres.ToDictionary(l => l.Caractere , l => l.Valeur);
         }
+
         public string ToString()
         {
             return $"Joueur {Numero} : {pseudo}";
         }
+
         public bool ContientMot(string mot)///On teste si le mot passé en paramètre appartient déjà aux mots trouvés par le joueur pendant la partie
         {
             bool b = false;
@@ -36,6 +40,7 @@ namespace Projet_Algo_1
             }
             return b;
         }
+
         public void Add_Mot(string mot)///Ajoute le mot dans la liste des mots déjà trouvés par l'utilisateur 
         {
             Motstrouvés.Add(mot);   ///On ajoute le mot trouvé par le joueur à la liste de mots
@@ -44,16 +49,23 @@ namespace Projet_Algo_1
 
         public void AjouterAuScore(string mot)
         {
-            int points = CalculerScore
+            int points = CalculerScore(mot);
+            score += points;
+            Console.WriteLine($"{pseudo} a gagné {points} points ! Nouveau score : {score}");
         }
 
         public int CalculerScore(string mot)
         {
-            int score = 0;
-            for(int i = 0; i < mot.Length; i++)
+            int pointstotal = 0;
+
+            foreach (char lettre in mot)
             {
-                score += mot[i].valeur;
-            } 
+                if (valeurLettres.ContainsKey(lettre))
+                {
+                    pointstotal += valeurLettres[lettre];
+                }
+            }
+            return pointstotal;
         }
     }
 }
