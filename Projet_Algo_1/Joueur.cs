@@ -44,7 +44,16 @@ namespace Projet_Algo_1
 
         public void AjouterAuScore(string mot)
         {
+            int points = CalculerScore
+        }
 
+        public int CalculerScore(string mot)
+        {
+            int score = 0;
+            for(int i = 0; i < mot.Length; i++)
+            {
+                score += mot[i].valeur;
+            } 
         }
     }
 }
