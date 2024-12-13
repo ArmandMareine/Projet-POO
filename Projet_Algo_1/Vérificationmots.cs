@@ -12,7 +12,7 @@ namespace Projet_Algo_1
         private Dé[,] plateau { get; set; }
         private List<string> motstrouvés;
         
-        private string langue;
+        private string langue;  
         private int scoreJoueur;
         private string cheminfichier1;
         private string cheminfichier2;
@@ -84,75 +84,47 @@ namespace Projet_Algo_1
 
             }
             ///On initialise les directions possibles autour d'une case sous la forme d'un tableau. 
-                 
-            ///Parcourons la matrice à la recherche de la première lettre 
-            for(int i=0;  i<plateau.GetLength(0); i++)
+            int[] dirx = { -1, -1, -1, 0, 1, 1, 1, 0 };
+            int[] diry = { -1, 0, 1, -1, -1, 0, 1, 1 };
+            ///On crée une fonction récursive pour la recherche du mot
+            bool TrouverMot(int i, int j, int index)
             {
-                for (int j=0; j<plateau.GetLength(1); j++)
+                ///Distinguons le cas où toutes les lettres du mot sont trouvées
+                if (index == mot.Length)
                 {
-                    if (plateauChars[i,j] == mot[i])
+                    b = true;
+                }
+                ///Nous vérifions ensuite les cases voisines du mot recherché
+                for(int k = 0; k < 8; k++)///8 car 8 cas possible
+                {
+                    int novi=i+dirx[k];
+                    int novj=j+diry[k];///Les nouvelles cases
+                    if(novi>=0 && novi<lignes && novj>=0 && novj<colonnes && plateauChars[novi, novj] == mot[index])
                     {
-                        if (i > 0 && i < plateauChars.GetLength(0) && j>0 && j < plateauChars.GetLength(0))
+                        if (TrouverMot(novi, novj, index))///On va appeler récursivement la focntion pour le caractère suivant
+                            b = true;
+                    }
+
+                }
+                b = false;
+                return b;
+            }
+            ///On recherche la première lettre du mot à trouver et on appelle la fonction récursive
+            for(int i =0; i<lignes; i++)
+            {
+                for(int  j =0; j < colonnes;)
+                {
+                    if (plateauChars[i, j] == mot[0])
+                    {
+                        if (TrouverMot(i, j, 1))///On cherche désormais autour de ce mot
                         {
-                            if (plateauChars[i-1,j]== mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else if (plateauChars[i-1,j-1]== mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else if (plateauChars[i - 1, j + 1] == mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else if (plateauChars[i, j - 1] == mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else if (plateauChars[i, j + 1] == mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else if (plateauChars[i + 1, j + 1] == mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else if (plateauChars[i + 1, j] == mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else if (plateauChars[i + 1, j + 1] == mot[1])
-                            {
-
-                                b = true;
-                                continue;
-                            }
-                            else
-                            {
-                                b = false;
-                                
-                            }
+                            b = true;
+                            break;
                         }
-                        ///On va désormais parcourir chaque case autour de la case actuelle. 
-                        
-                          
                     }
                 }
+                if (b) break; ///Si b=true, alors on sort des boucles car le mot est trouvé 
+
             }
             return b;
         }
@@ -203,7 +175,7 @@ namespace Projet_Algo_1
                 {
                     return true;
                 }
-                else if (comparaison < 0) // Rechercher dans la moitié supérieure
+                else if (comparaison < 0) /// Rechercher dans la moitié supérieure
                 {
                     debut = milieu + 1;
                 }

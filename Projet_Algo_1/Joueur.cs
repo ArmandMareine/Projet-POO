@@ -12,9 +12,10 @@ namespace Projet_Algo_1
         private string pseudo { get; set; }
         private int score { get; set; } 
         private HashSet<string> Motstrouvés { get; set; }
+
         private Dictionary<char, int> valeurLettres;
 
-        public Joueur(int Numero, string pseudo, int score)
+        public Joueur(int Numero, string pseudo, int score,List<Lettre> lettres)
         {
             this.Numero = Numero;
             this.pseudo = pseudo;
@@ -23,28 +24,37 @@ namespace Projet_Algo_1
             valeurLettres = lettres.ToDictionary(l => l.Caractere , l => l.Valeur);
         }
 
-        public string ToString()
+        public int GetScore()
+        {
+            return score;
+        }
+
+        public string toString()
         {
             return $"Joueur {Numero} : {pseudo}";
         }
 
         public bool ContientMot(string mot)///On teste si le mot passé en paramètre appartient déjà aux mots trouvés par le joueur pendant la partie
         {
-            bool b = false;
-            foreach (string Mot in Motstrouvés)///On teste si le mot trouvé par l'utilisateur est déjà dans la liste contenant tous les mots trouvés
-            {
-                if (Mot == mot)
-                {
-                    b = true;
-                }
-            }
-            return b;
+            return Motstrouvés.Contains(mot);
         }
 
         public void Add_Mot(string mot)///Ajoute le mot dans la liste des mots déjà trouvés par l'utilisateur 
         {
+            if (string.IsNullOrWhiteSpace(mot))
+            {
+                Console.WriteLine("Mot invalide !");
+                return;
+            }
+
+            if (Motstrouvés.Contains(mot))
+            {
+                Console.WriteLine("Ce mot a déjà été trouvé !");
+                return;
+            }
+
             Motstrouvés.Add(mot);   ///On ajoute le mot trouvé par le joueur à la liste de mots
-            Console.WriteLine($"Les mots trouvés sont : {Motstrouvés}");
+            Console.WriteLine($"{pseudo} a trouvé le mot : {mot} !");
         }
 
         public void AjouterAuScore(string mot)

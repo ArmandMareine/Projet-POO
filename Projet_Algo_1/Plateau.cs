@@ -105,8 +105,8 @@ namespace Projet_Algo_1
                     }
                 }
                 Console.WriteLine();
-                Console.Write(new string('-', taille * 6));
             }
+            Console.Write(new string('-', taille * 6));
         }
 
         

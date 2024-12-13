@@ -34,6 +34,7 @@ namespace Projet_Algo_1
             {
                 Console.WriteLine("Aucune lettre n'a été importée.");
             }
+           
             /*
            foreach (string str in tri)
            {
