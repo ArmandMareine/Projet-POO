@@ -10,20 +10,20 @@ namespace Projet_Algo_1
     {
 
         private Dé[,] plateau { get; set; }
-        private List<string> motstrouvés;
+        private HashSet <string> motstrouvés;
         
         private string langue;  
         private int scoreJoueur;
         private string cheminfichier1;
         private string cheminfichier2;
 
-        public VérificationMots(Dé[,] plateau, List<string> motstrouvés, string langue, int scoreJoueur, string cheminfichier1, string cheminfichier2)///Constrcteur naturel
+        public VérificationMots(Dé[,] plateau, HashSet<string> motstrouvés, string langue, string cheminfichier1, string cheminfichier2)///Constrcteur naturel
         {
 
             this.plateau = plateau;
             this.motstrouvés = motstrouvés;
             this.langue = langue;
-            this.scoreJoueur = scoreJoueur;
+            ///this.scoreJoueur = scoreJoueur;
             cheminfichier1 = "../../../../MotsPossiblesFR.txt";
             cheminfichier2 = "../../../../MotsPossiblesEN.txt";
             
