@@ -8,122 +8,153 @@ using System.Threading.Tasks;
 
 namespace Projet_Algo_1
 {
-    internal class Plateau 
+    public class Plateau 
     {
-        private List<Dé> Dés;
-        private int taille { get; }
         
-        public Plateau(int taille)
+        private int taille { get; }
+        private Dé[,] plateau; ///On ajoute directement la matrice de dés
+
+        
+        public Plateau(int taille, List<Lettre >facespondérées)
         {
-            
             this.taille = taille;
-            Dés = new List<Dé>(taille);
+            this.plateau = new Dé[taille, taille];
+            InitialiserDés(facespondérées);
+            ///Initialisation des faces du dé ainsi que du plateau qui est une matrice de dés
         }
-        public void InitialiserDés(List<Lettre> lettres,int taille)///On initilise les dés 
+        public void InitialiserDés(List<Lettre> facespondérées)///On initilise les dés 
         {
-            if (lettres.Count < 6)///On vérifie que l'on a le bon nombre de lettres pour créer le dé
-            {
-                Console.WriteLine("Il n'y a pas assez de lettres pour créer le dé");
-                return;
-            }
-
-            List<Lettre> facesPonderees = new List<Lettre>();
-            foreach (var lettre in lettres)
-            {
-                for(int i = 0; i < lettre.Nombre; i++)
-                {
-                    facesPonderees.Add(lettre);
-                }
-            }
-
-            Dés = new List<Dé>();
-            int indexlettres = 0;
-            int nbdedés = taille * taille;
             Random random = new Random();
-            
-            while(Dés.Count < nbdedés)
+            for(int i=0; i<taille; i++)
             {
-                List<Lettre> faces = new List<Lettre>();
-
-                for(int i=0; i < 6; i++)
+                for(int j=0; j < taille; j++)
                 {
-                    Lettre face = facesPonderees[random.Next(facesPonderees.Count)];
-                    faces.Add(face);
+                    List<Lettre> faces = new List<Lettre>();///On crée une liste de six lettres 
+                    for(int k=0; k < 6; k++)
+                    {
+                        Lettre face = facespondérées[random.Next(facespondérées.Count)];///On va ajouter avec le random une face visible au dé
+                        faces.Add(face);
+                    }
+                    plateau[i, j] = new Dé(faces);///On ajoute à la matrice de dés les faces
                 }
-                Dés.Add(new Dé(faces)); ///On crée un dé à six faces avec six lettres
-            }
-
-            if (Dés.Count == 0)
-            {
-                Console.WriteLine("Erreur. Le dé n'a pas pu être créé");
-            }
-            else
-            {
-                Console.WriteLine("Les dés sont initialisés avec succès ! ");
             }
             
+        }
+        /// Affichage du plateau de jeu 
+        public void AfficherPlateau()
+        {
+            Console.WriteLine("Plateau du jeu :");
+            for (int i = 0; i < taille; i++)
+            {
+                for (int j = 0; j < taille; j++)
+                {
+                    /// Affiche la face visible de chaque dé
+                    Console.Write($"| {plateau[i, j]?.FaceVisible.Caractere} ");
+                }
+                Console.WriteLine("|");
+            }
         }
        
-        public void LancerTousLesDés(int taille)
+        public static bool VérifLongueur(string mot) => mot.Length > 2;///On vérifie que la longueur est d'au moins 2 caractères pour le mot
+        
+        public bool FormableAvecPlateau(string mot,Dé [,] plateau)
         {
-            Console.WriteLine("Plateau du Jeu :");
-            Random random = new Random();
-            Dé[,] plateau = new Dé[taille, taille];
-            int index = 0;
+            int lignes = plateau.GetLength(0);
+            int colonnes = plateau.GetLength(1);
 
-            /// Remplissage du plateau
-            for (int i = 0; i < taille; i++)
+            ///On assure une conversion en plateau de char
+            char[,] plateauChars = new char[lignes, colonnes];
+
+            for (int i = 0; i < lignes; i++)
             {
-                for (int j = 0; j < taille; j++)
+                for (int j = 0; j < colonnes; j++)
                 {
-                    if (index < Dés.Count)
+                    plateauChars[i, j] = plateau[i, j].FaceVisible.Caractere; /// Accède à la lettre visible
+                }
+            }
+            ///On initialise les directions possibles autour d'une case sous la forme d'un tableau. 
+            int[] dirx = { -1, -1, -1, 0, 1, 1, 1, 0 };
+            int[] diry = { -1, 0, 1, -1, -1, 0, 1, 1 };
+            ///On crée une fonction récursive pour la recherche du mot
+            bool TrouverMot(int i, int j, int index)
+            {
+                ///Distinguons le cas où toutes les lettres du mot sont trouvées
+                if (index == mot.Length)
+                {
+                    return true;
+                }
+                ///Nous vérifions ensuite les cases voisines du mot recherché
+                for (int k = 0; k < 8; k++)///8 car 8 cas possible
+                {
+                    int novi = i + dirx[k];
+                    int novj = j + diry[k];///Les nouvelles cases
+
+                    if (novi >= 0 && novi < lignes && novj >= 0 && novj < colonnes && plateauChars[novi, novj] == mot[index])
                     {
-                        plateau[i, j] = Dés[index];
-                        plateau[i, j].Lance(random); /// Lancer du dé avec le Random
-                        index++;
+                        if (TrouverMot(novi, novj, index + 1))///On va appeler récursivement la focntion pour le caractère suivant
+                            return true;
                     }
-                    else
+
+                }
+                return false;
+            }
+            ///On recherche la première lettre du mot à trouver et on appelle la fonction récursive
+            for (int i = 0; i < lignes; i++)
+            {
+                for (int j = 0; j < colonnes; j++)
+                {
+                    if (plateauChars[i, j] == mot[0] && TrouverMot(i, j, 1))
                     {
-                        plateau[i, j] = null; /// Case vide
+                        return true;
                     }
                 }
             }
+            return false;
+        }
+        public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)///Vérification de l'appartenance au mot dans le dictionnaire français ou anglais
+        {
+            string cheminfichier = langue == "Français" ? cheminfichier1 : cheminfichier2;
 
-            /// Affichage du plateau de jeu 
-            for (int i = 0; i < taille; i++)
+            if (string.IsNullOrEmpty(cheminfichier1) || !File.Exists(cheminfichier1))
             {
-                Console.Write("| ");
-                for (int j = 0; j < taille; j++)
-                {
-                    if (plateau[i, j] != null)
-                    {
-                        Console.Write(plateau[i, j].ToString() + "\t");///On affiche chaque élément du plateau
-                    }
-                    else
-                    {
-                        Console.Write("[ ]".PadRight(4) + "| ");
-                    }
-                }
-                Console.WriteLine();
+                Console.WriteLine($"Le fichier du dictionnaire n'existe pas : {cheminfichier}");
+                return false;
             }
-            Console.Write(new string('-', taille * 6));
+
+            Dictionnaire dictionnaire = new Dictionnaire(cheminfichier, langue);
+            List<string> mots = dictionnaire.ChargerMots(cheminfichier);
+            return RechercheDichotomique(mots, mot);
         }
 
-        
-        public override string ToString()///Méthode To string pour l'affichage du plateau de jeu
+        public static bool RechercheDichotomique(List<string> list, string motRechercher)///Algorithme sélectionné pour la recherche dichotomique 
         {
-            string result = "Plateau :\n";
-            
-            foreach (Dé de in Dés)
+            int debut = 0;
+            int fin = list.Count - 1;
+
+            while (debut <= fin) /// Recherche dans la liste triée
             {
-                result += de ;
-                Console.Write(result);
-                
+                int milieu = (debut + fin) / 2;
+
+                /// Comparaison insensible à la casse
+                int comparaison = String.Compare(list[milieu], motRechercher, StringComparison.OrdinalIgnoreCase);
+
+                if (comparaison == 0) /// Élément trouvé
+                {
+                    return true;
+                }
+                else if (comparaison < 0) /// Rechercher dans la moitié supérieure
+                {
+                    debut = milieu + 1;
+                }
+                else /// Rechercher dans la moitié inférieure
+                {
+                    fin = milieu - 1;
+                }
             }
-            Console.WriteLine("\n");
-            return result;
-        
+
+            return false; /// Élément non trouvé
         }
 
     }
 }
+

@@ -41,7 +41,7 @@ namespace Projet_Algo_1
                 }
             }
 
-            // Sélectionner une lettre au hasard dans la liste pondérée
+            /// Sélectionner une lettre au hasard dans la liste pondérée
             faceVisible = facesPonderees[r.Next(facesPonderees.Count)];
         }
 

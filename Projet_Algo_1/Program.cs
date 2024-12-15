@@ -8,6 +8,7 @@ namespace Projet_Algo_1
         static void Main(string[] args)
         {
             string cheminFichier = "../../../../MotsPossiblesFR.txt";
+            string cheminFichier5 = "../../../../MotsPossiblesEN.txt";
             Console.Write(cheminFichier+ "\n");
             string Langue = "Français";
             Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
@@ -22,9 +23,7 @@ namespace Projet_Algo_1
             int taille1 = 4;
             string cheminFichier2 = "../../../../lettres.txt";
             List<Lettre> lettres = Lettre.LectureFichier(cheminFichier2);
-            Plateau plateau = new Plateau(taille1);
-            plateau.InitialiserDés(lettres,taille1);
-            plateau.LancerTousLesDés(4);
+            
             /// Affiche les lettres importées
             if (lettres.Count > 0)
             {
@@ -34,7 +33,10 @@ namespace Projet_Algo_1
             {
                 Console.WriteLine("Aucune lettre n'a été importée.");
             }
+            
+
            
+
             /*
            foreach (string str in tri)
            {
@@ -55,7 +57,7 @@ namespace Projet_Algo_1
 
 
 
-            
+
             ////////////////////////////////////////////////////////////////////////
             //Fin de la zone de test : Début du jeu 
             Console.WriteLine("Bienvenue au jeu du Boggle ! ");
