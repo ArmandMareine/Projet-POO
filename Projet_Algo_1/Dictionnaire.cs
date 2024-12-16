@@ -59,6 +59,7 @@ namespace Projet_Algo_1
                         ligne = sr.ReadLine();
                     }
                 }
+                
             }
             catch (FileNotFoundException)
             {

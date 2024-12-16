@@ -53,67 +53,14 @@ namespace Projet_Algo_1
             }
         }
         */
-        public static bool VérifLongueur(string mot) => mot.Length > 2;///On vérifie que la longueur est d'au moins 2 caractères pour le mot
-        
-        public bool FormableAvecPlateau(string mot)
+        public static bool VérifLongueur(string mot) => mot.Length >= 2;///On vérifie que la longueur est d'au moins 2 caractères pour le mot
+
+
+
+        public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier)///Vérification de l'appartenance au mot dans le dictionnaire français ou anglais
         {
-            int lignes = plateau.GetLength(0);
-            int colonnes = plateau.GetLength(1);
 
-            ///On assure une conversion en plateau de char
-            char[,] plateauChars = new char[lignes, colonnes];
-            
-            for (int i = 0; i < lignes; i++)
-            {
-                for (int j = 0; j < colonnes; j++)
-                {
-                    plateauChars[i, j] = plateau[i, j].FaceVisible.Caractere; /// Accède à la lettre visible
-                }
-            }
-            ///On initialise les directions possibles autour d'une case sous la forme d'un tableau. 
-            int[] dirx = { -1, -1, -1, 0, 1, 1, 1, 0 };
-            int[] diry = { -1, 0, 1, -1, -1, 0, 1, 1 };
-            ///On crée une fonction récursive pour la recherche du mot
-            bool TrouverMot(int i, int j, int index)
-            {
-                ///Distinguons le cas où toutes les lettres du mot sont trouvées
-                if (index == mot.Length)
-                {
-                    return true;
-                }
-                ///Nous vérifions ensuite les cases voisines du mot recherché
-                for(int k = 0; k < 8; k++)///8 car 8 cas possible
-                {
-                    int novi=i+dirx[k];
-                    int novj=j+diry[k];///Les nouvelles cases
-
-                    if(novi>=0 && novi<lignes && novj>=0 && novj<colonnes && plateauChars[novi, novj] == mot[index])
-                    {
-                        if (TrouverMot(novi, novj, index + 1 ))///On va appeler récursivement la focntion pour le caractère suivant
-                            return true;
-                    }
-
-                }
-                return false;
-            }
-            ///On recherche la première lettre du mot à trouver et on appelle la fonction récursive
-            for(int i = 0; i < lignes; i++)
-            {
-                for(int j = 0; j < colonnes; j++)
-                {
-                    if (plateauChars[i, j] == mot[0] && TrouverMot(i ,j ,1))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)///Vérification de l'appartenance au mot dans le dictionnaire français ou anglais
-        {
-            string cheminfichier = langue == "Français" ? cheminfichier1 : cheminfichier2;
-
-            if(string.IsNullOrEmpty(cheminfichier1) || !File.Exists(cheminfichier1))
+            if(string.IsNullOrEmpty(cheminfichier) || !File.Exists(cheminfichier))
             {
                 Console.WriteLine($"Le fichier du dictionnaire n'existe pas : {cheminfichier}");
                 return false;

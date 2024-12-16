@@ -45,7 +45,7 @@ namespace Projet_Algo_1
         }
         public string ToString()
         {
-            return $"{caractere} (Valeur : {valeur}, Nombre : {nombre})";
+            return $"{caractere} (Valeur : {valeur}, Occurences : {nombre})";
         }
         
         public static List<Lettre> LectureFichier(string cheminFichier2)

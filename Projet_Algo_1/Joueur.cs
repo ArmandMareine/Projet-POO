@@ -9,7 +9,7 @@ namespace Projet_Algo_1
     public class Joueur
     {
         private int Numero { get; set; }
-        private string pseudo { get; set; }
+        public string pseudo { get; set; }
         private int score { get; set; } 
         private HashSet<string> Motstrouvés { get; set; }
 

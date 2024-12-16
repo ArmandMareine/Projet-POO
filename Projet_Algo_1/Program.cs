@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
 namespace Projet_Algo_1
@@ -7,6 +8,140 @@ namespace Projet_Algo_1
     {
         static void Main(string[] args)
         {
+            #region Paramètres
+            string langue;
+            string cheminFichierMots; 
+            string cheminFichierLettres = "../../../../lettres.txt";
+            #endregion
+
+            #region Choix de la langue du dictionnaire
+            do
+            {
+                Console.WriteLine("Choisissez la langue du dictionnaire (Français ou Anglais) : ");
+                langue = Console.ReadLine()?.Trim();
+            } while (langue != "Français" && langue != "Anglais");
+
+            ///Définir chemin du fichier de dictionnaire en fonction de la langue choisie
+            cheminFichierMots = langue == "Français" ? "../../../../MotsPossiblesFR.txt" : "../../../../MotsPossiblesEN.txt";
+
+            ///Chargement du dicionnaire
+            Dictionnaire dictionnaire = new Dictionnaire(cheminFichierMots, langue);
+            List<string> mots = dictionnaire.ChargerMots(cheminFichierMots);
+            List<string> triée = Tri_Fichier_2.TriparFusion(mots);
+            #endregion
+
+            #region Joueurs
+            ///Nombre de joueurs
+            int nbJoueurs;
+            do
+            {
+                Console.WriteLine("Saisir le nombre de joueurs (minimum 2, maximum 10) : ");
+            }while(!int.TryParse(Console.ReadLine(), out nbJoueurs) || nbJoueurs < 2 || nbJoueurs > 10);
+
+            ///Créer les joueurs
+            Joueur[] joueurs = new Joueur[nbJoueurs];
+            for(int i = 0;i < joueurs.Length; i++)
+            {
+                Console.WriteLine($"Saisir le pseudo du joueur n°{i + 1} : ");
+                string pseudo = Console.ReadLine()?.Trim();
+                joueurs[i] = new Joueur(i+1,pseudo,0,new List<Lettre>());
+            }
+            #endregion
+
+            #region Plateau
+            ///Initialisation du plateau
+            Console.WriteLine("Saisir la taille du plateau voulue (minimum 4, maximum 8) : ");
+            int taillePlateau = int.Parse(Console.ReadLine());
+            List<Lettre> lettres = Lettre.LectureFichier(cheminFichierLettres);
+            Plateau plateau = new Plateau(taillePlateau);
+            plateau.InitialiserDés(lettres, taillePlateau);
+            plateau.LancerTousLesDés(taillePlateau);
+            #endregion
+
+            #region Déroulé du jeu
+            ///Durée de la partie
+            int dureePartieMinutes;
+            do
+            {
+                Console.Write("Saisir la durée de la partie en minutes : ");
+            }while(!int.TryParse(Console.ReadLine(), out dureePartieMinutes) || dureePartieMinutes <= 0);
+
+            TimeSpan dureePartie = TimeSpan.FromMinutes(dureePartieMinutes);
+
+            ///Durée des tours
+            int dureeTourSecondes;
+            do
+            {
+                Console.Write("Saisir la durée des tours en secondes : ");
+            } while (!int.TryParse(Console.ReadLine(), out dureeTourSecondes) || dureeTourSecondes <= 0);
+
+            TimeSpan dureeTours = TimeSpan.FromSeconds(dureeTourSecondes);
+
+            ///Début du jeu
+
+            DateTime debutPartie = DateTime.Now;
+
+            while(DateTime.Now - debutPartie < dureePartie)
+            {
+                foreach(var joueur in joueurs)
+                {
+                    Console.WriteLine($"C'est au tour du joueur {joueur.pseudo}:");
+                    Console.WriteLine($"Temps restant pour ce tour : {dureeTours.TotalSeconds} secondes");
+
+                    DateTime debutTour = DateTime.Now;
+
+                    ///Tour du Joueur
+                    while(DateTime.Now - debutTour <= dureeTours)
+                    {
+                        Console.WriteLine("Entrez un mot à former avec les lettres du plateau:");
+                        string mot = Console.ReadLine().ToUpper();
+
+                        if (!string.IsNullOrEmpty(mot))
+                        {
+                            ///Vérification conditions du mot
+                            if(VérificationMots.VérifLongueur(mot) && plateau.FormableAvecPlateau(mot))
+                            {
+                                if(VérificationMots.AppartientDictionnaire(mot, langue, cheminFichierMots))
+                                {
+                                    if (!joueur.ContientMot(mot))
+                                    {
+                                        joueur.Add_Mot(mot);
+                                        joueur.AjouterAuScore(mot);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Ce mot a déjà été trouvé !");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Le mot n'est pas dans le dictionnaire.");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Le mot n'est pas formable ou trop court.");
+                            }
+                        }
+                    }
+                }
+                if(DateTime.Now - debutPartie > dureePartie)
+                {
+                    Console.WriteLine("Le temps de la partie est écoulé !");
+                    break;
+                }
+            }
+
+            ///Annonce du gagnant
+            Joueur gagnant = joueurs.OrderByDescending(j => j.GetScore()).First();
+            Console.WriteLine($"Le gagnant est {gagnant.pseudo} avec un score de {gagnant.GetScore()} points.");
+            Console.WriteLine("Fin de la partie ! Merci d'avoir joué !");
+            #endregion
+
+
+
+
+            /*
             string cheminFichier = "../../../../MotsPossiblesFR.txt";
             Console.Write(cheminFichier+ "\n");
             string Langue = "Français";
@@ -55,10 +190,10 @@ namespace Projet_Algo_1
 
 
 
-            
+
             ////////////////////////////////////////////////////////////////////////
             //Fin de la zone de test : Début du jeu 
-            Console.WriteLine("Bienvenue au jeu du Boggle ! ");
+            ///Console.WriteLine("Bienvenue au jeu du Boggle ! ");
             ///Définition des chemins fichiers à rajouter (le lettre)
             ///Défintion des timers
             /*
@@ -165,7 +300,7 @@ namespace Projet_Algo_1
             
             }  
             */
-           
+
         }
             
     }
