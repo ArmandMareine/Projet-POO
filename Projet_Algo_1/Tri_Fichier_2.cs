@@ -155,13 +155,53 @@ namespace Projet_Algo_1
                 }
                 else /// Rechercher dans la moitié inférieure
                 {
-                    fin = milieu - 1;
+                    fin = milieu - 1;   
                 }
             }
 
             return false; /// Élément non trouvé
         }
+        ///Méthode de tri 2 : Tri Quicksort
+        public static int Partionner(List<string> list, int debut, int fin)
+        {
+            
+           
+           string pivot = list[fin]; /// Choisir le dernier élément comme pivot (arbitraire)
 
+            int i = debut - 1; /// Index de l'élément plus petit que le pivot
+
+            for(int j=debut; j<fin;j++)
+            {
+                if (list[j].CompareTo(pivot) <= 0) /// On teste si l'élément est plus petit ou égal au pivot
+                {
+                    i++; /// Incrémenter l'index de l'élément plus petit
+                         
+                    string temp = list[i];
+                    list[i] = list[j];
+                    list[j] = temp;///On réalise ici l'échange des éléments 
+
+                }
+               
+                
+            }
+            string temp2 = list[i + 1];
+            list[i + 1] = list[fin];
+            list[fin] = temp2;
+
+            return i + 1; /// Retourner l'index du pivot
+        }
+        public static void Quick_Sort(List<string> list, int debut, int fin)
+        {
+            if (debut < fin)
+            {
+                /// Obtenir l'index du pivot
+                int pivotIndex = Partionner(list, debut, fin);
+
+                /// Appliquer récursivement sur la partie gauche et droite de la liste
+                Quick_Sort(list, debut, pivotIndex - 1); /// Avant le pivot
+                Quick_Sort(list, pivotIndex + 1, fin);   /// Après le pivot
+            }
+        }
 
     }
 }

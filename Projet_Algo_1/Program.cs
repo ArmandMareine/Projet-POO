@@ -53,9 +53,9 @@ namespace Projet_Algo_1
             Console.WriteLine("Saisir la taille du plateau voulue (minimum 4, maximum 8) : ");
             int taillePlateau = int.Parse(Console.ReadLine());
             List<Lettre> lettres = Lettre.LectureFichier(cheminFichierLettres);
-            Plateau plateau = new Plateau(taillePlateau);
-            plateau.InitialiserDés(lettres, taillePlateau);
-            plateau.LancerTousLesDés(taillePlateau);
+            Plateau plateau = new Plateau(taillePlateau, lettres);
+            plateau.InitialiserDés(lettres);
+            plateau.AffichagePlateau();
             #endregion
 
             #region Déroulé du jeu
@@ -99,7 +99,7 @@ namespace Projet_Algo_1
                         if (!string.IsNullOrEmpty(mot))
                         {
                             ///Vérification conditions du mot
-                            if(VérificationMots.VérifLongueur(mot) && plateau.FormableAvecPlateau(mot))
+                            if(VérificationMots.VérifLongueur(mot) && plateau.FormableAvecPlateau(mot,plateau))
                             {
                                 if(VérificationMots.AppartientDictionnaire(mot, langue, cheminFichierMots))
                                 {
@@ -143,6 +143,7 @@ namespace Projet_Algo_1
 
             /*
             string cheminFichier = "../../../../MotsPossiblesFR.txt";
+            string cheminFichier5 = "../../../../MotsPossiblesEN.txt";
             Console.Write(cheminFichier+ "\n");
             string Langue = "Français";
             Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
@@ -157,9 +158,7 @@ namespace Projet_Algo_1
             int taille1 = 4;
             string cheminFichier2 = "../../../../lettres.txt";
             List<Lettre> lettres = Lettre.LectureFichier(cheminFichier2);
-            Plateau plateau = new Plateau(taille1);
-            plateau.InitialiserDés(lettres,taille1);
-            plateau.LancerTousLesDés(4);
+            
             /// Affiche les lettres importées
             if (lettres.Count > 0)
             {
@@ -169,7 +168,10 @@ namespace Projet_Algo_1
             {
                 Console.WriteLine("Aucune lettre n'a été importée.");
             }
+            
+
            
+
             /*
            foreach (string str in tri)
            {
