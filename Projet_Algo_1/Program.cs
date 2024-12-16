@@ -13,6 +13,9 @@ namespace Projet_Algo_1
             string cheminFichierMots;
             string cheminFichierLettres = "../../../../lettres.txt";
             #endregion
+            #region Annonce jeu
+            Console.WriteLine("Bienvenue dans le jeu du Boggle ! Ce jeu a été conçu par Aubin Lin et Armand Mareine. Bonne partie !");
+            #endregion
 
             #region Choix de la langue du dictionnaire
 
@@ -45,13 +48,13 @@ namespace Projet_Algo_1
             #endregion
 
             #region Déroulé du jeu
-            // Demander la durée de la partie
+            /// Demander la durée de la partie
             TimeSpan dureePartie = GetTempsDePartie();
 
-            // Demander la durée des tours
+            /// Demander la durée des tours
             TimeSpan dureeTours = GetTempsParTour();
 
-            // Initialisation du jeu
+            /// Initialisation du jeu
             List<string> tri = Tri_Fichier_2.TriparFusion(mots);
             Console.WriteLine(Tri_Fichier_2.RechercheDichotomique(tri, "Zoo"));
 
@@ -65,14 +68,14 @@ namespace Projet_Algo_1
 
                     DateTime debutTour = DateTime.Now;
 
-                    // Tour du joueur
+                    /// Tour du joueur
                     while (DateTime.Now - debutTour <= dureeTours)
                     {
                         string mot = DemanderMotPlateau();
 
                         if (!string.IsNullOrEmpty(mot))
                         {
-                            // Vérification des conditions du mot
+                            /// Vérification des conditions du mot
                             if (Plateau.VérifLongueur(mot) && plateau.FormableAvecPlateau(mot))
                             {
                                 if (Plateau.AppartientDictionnaire(mot, langue, cheminFichierMots, cheminFichierMots))
@@ -107,7 +110,7 @@ namespace Projet_Algo_1
                 }
             }
 
-            // Annonce du gagnant
+            /// Annonce du gagnant
             Joueur gagnant = joueurs.OrderByDescending(j => j.GetScore()).First();
             Console.WriteLine($"Le gagnant est {gagnant.pseudo} avec un score de {gagnant.GetScore()} points.");
             Console.WriteLine("Fin de la partie ! Merci d'avoir joué !");
