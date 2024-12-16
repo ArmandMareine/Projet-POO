@@ -89,11 +89,13 @@ namespace Projet_Algo_1
                 }
 
                 /// Affiche toutes les lettres pour vérification
+                /*
                 Console.WriteLine("Lettres importées :");
                 foreach (var lettre in lettres)
                 {
                     Console.WriteLine(lettre.ToString());
                 }
+                */
             }
             catch (Exception ex)
             {

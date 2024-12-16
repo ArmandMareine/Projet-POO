@@ -11,38 +11,54 @@ namespace Projet_Algo_1
 {
     public class Plateau 
     {
-        private int taille { get; }
-        private Dé[,] plateau; ///On ajoute directement la matrice de dés
+        private int taille;
+        private Dé[,] plateau; /// On ajoute directement la matrice de dés
 
 
-        public Plateau(int taille, List<Lettre> facespondérées)
+        public Plateau(int taille)
         {
             this.taille = taille;
             this.plateau = new Dé[taille, taille];
-            InitialiserDés(facespondérées);
-            ///Initialisation des faces du dé ainsi que du plateau qui est une matrice de dés
         }
-        public void InitialiserDés(List<Lettre> facespondérées)///On initilise les dés 
+        public void InitialiserDés(List<Lettre> facespondérées)
         {
             Random random = new Random();
             for (int i = 0; i < taille; i++)
             {
                 for (int j = 0; j < taille; j++)
                 {
-                    List<Lettre> faces = new List<Lettre>();///On crée une liste de six lettres 
+                    List<Lettre> faces = new List<Lettre>();  /// Créer une liste de six lettres
                     for (int k = 0; k < 6; k++)
                     {
-                        Lettre face = facespondérées[random.Next(facespondérées.Count)];///On va ajouter avec le random une face visible au dé
+                        Lettre face = facespondérées[random.Next(facespondérées.Count)];  /// On choisit une face aléatoire parmi les faces pondérées
                         faces.Add(face);
                     }
-                    plateau[i, j] = new Dé(faces);///On ajoute à la matrice de dés les faces
+                    plateau[i, j] = new Dé(faces);  /// Assigner un dé au plateau
+                }
+            }
+        }
+
+        public void LancerTousLesDés()
+        {
+            Random random = new Random();
+
+            // Remplissage du plateau avec les dés
+            for (int i = 0; i < taille; i++)
+            {
+                for (int j = 0; j < taille; j++)
+                {
+                    if (plateau[i, j] != null)
+                    {
+                        plateau[i, j].Lance(random);  // Lancer le dé pour choisir une face visible
+                    }
+                    else
+                    {
+                        plateau[i, j] = null;  // Cas où il n'y a pas assez de dés
+                    }
                 }
             }
 
-        }
-
-        public void AffichagePlateau()
-        {
+            // Affichage du plateau
             for (int i = 0; i < taille; i++)
             {
                 Console.Write("| ");
@@ -50,23 +66,20 @@ namespace Projet_Algo_1
                 {
                     if (plateau[i, j] != null)
                     {
-                        Console.Write(plateau[i, j].ToString() + "\t");  // Afficher la face visible du dé
+                        Console.Write(plateau[i, j].ToString() + " | ");  // Afficher la face visible du dé
                     }
                     else
                     {
                         Console.Write("[ ]\t");  // Case vide
                     }
                 }
-                Console.WriteLine("|");
-                Console.WriteLine(new string('-', taille * 6));  // Ligne de séparation
+                Console.WriteLine();
             }
         }
 
+        public static bool VérifLongueur(string mot) => mot.Length >= 2;///On vérifie que la longueur est d'au moins 2 caractères pour le mot
 
-
-        public static bool VérifLongueur(string mot) => mot.Length > 2;///On vérifie que la longueur est d'au moins 2 caractères pour le mot
-
-        public bool FormableAvecPlateau(string mot, Dé[,] plateau)
+        public bool FormableAvecPlateau(string mot)
         {
             int lignes = plateau.GetLength(0);
             int colonnes = plateau.GetLength(1);
@@ -108,7 +121,7 @@ namespace Projet_Algo_1
 
                     if (novi >= 0 && novi < lignes && novj >= 0 && novj < colonnes && plateauChars[novi, novj] == mot[index])
                     {
-                        if (TrouverMot(novi, novj, index + 1))///On va appeler récursivement la focntion pour le caractère suivant
+                        if (TrouverMot(novi, novj, index + 1))  /// Recherche récursive
                             return true;
                     }
 
@@ -126,13 +139,13 @@ namespace Projet_Algo_1
                     }
                 }
             }
-            return false;
+            return false;/// Mot non trouvé
         }
-        public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)///Vérification de l'appartenance au mot dans le dictionnaire français ou anglais
+        public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)
         {
             string cheminfichier = langue == "Français" ? cheminfichier1 : cheminfichier2;
 
-            if (string.IsNullOrEmpty(cheminfichier1) || !File.Exists(cheminfichier1))
+            if (string.IsNullOrEmpty(cheminfichier) || !File.Exists(cheminfichier))
             {
                 Console.WriteLine($"Le fichier du dictionnaire n'existe pas : {cheminfichier}");
                 return false;
@@ -140,11 +153,20 @@ namespace Projet_Algo_1
 
             Dictionnaire dictionnaire = new Dictionnaire(cheminfichier, langue);
             List<string> mots = dictionnaire.ChargerMots(cheminfichier);
-            return RechercheDichotomique(mots, mot);
+            List<string> tri = Tri_Fichier_2.TriparFusion(mots);
+
+            /// Assurez-vous que le mot recherché est en majuscules, ou bien le mot du dictionnaire est normalisé
+            mot = mot.ToUpper();
+
+            return RechercheDichotomique(tri, mot);
         }
+
 
         public static bool RechercheDichotomique(List<string> list, string motRechercher)///Algorithme sélectionné pour la recherche dichotomique 
         {
+            // Trier la liste avant de faire la recherche
+            list.Sort(StringComparer.OrdinalIgnoreCase);
+
             int debut = 0;
             int fin = list.Count - 1;
 

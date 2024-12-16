@@ -53,7 +53,7 @@ namespace Projet_Algo_1
                         {
                             if (mot.All(char.IsLetter)) // Vérifie que le mot ne contient que des lettres
                             {
-                                Mots.Add(mot.Trim());
+                                Mots.Add(mot.Trim().ToUpper());
                             }
                         }
                         ligne = sr.ReadLine();
