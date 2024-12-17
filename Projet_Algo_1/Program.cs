@@ -58,7 +58,7 @@ namespace Projet_Algo_1
             TimeSpan dureeTours = GetTempsParTour();
 
             ///Affichage du plateau
-            plateau.LancerTousLesDés();
+           /// plateau.LancerTousLesDés();
 
             DateTime debutPartie = DateTime.Now;
             while (DateTime.Now - debutPartie < dureePartie)
@@ -67,7 +67,7 @@ namespace Projet_Algo_1
                 {
                     Console.WriteLine($"C'est au tour du joueur {joueur.pseudo}:");
                     Console.WriteLine($"Temps restant pour ce tour : {dureeTours.TotalSeconds} secondes");
-
+                    plateau.LancerTousLesDés();
                     DateTime debutTour = DateTime.Now;
 
                     /// Tour du joueur
