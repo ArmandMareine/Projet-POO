@@ -216,6 +216,8 @@ namespace Projet_Algo_1
             {
                 try
                 {
+                    string nomFichier = $"nuage_{joueur.pseudo}.png";
+                    string cheminImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nomFichier);  /// Utilisation du chemin absolu
                     /// Récupérer les mots trouvés et calculer leur fréquence
                     var motsFrequencies = new Dictionary<string, int>();
 
@@ -238,12 +240,21 @@ namespace Projet_Algo_1
                     IList<int> frequences = motsFrequencies.Values.ToList();
                     var wordCloud = new WordCloud(800, 600); /// Taille de l'image
                     System.Drawing.Image image = wordCloud.Draw(motsTrouvés, frequences); /// Explicitement System.Drawing.Image
+                    /// Vérifier si le répertoire existe, sinon le créer
+                    string cheminRepertoire = Path.GetDirectoryName(cheminImage);
+                    if (!Directory.Exists(cheminRepertoire))
+                    {
+                        Directory.CreateDirectory(cheminRepertoire);  // Crée le répertoire si nécessaire
+                    }
+
 
                     /// Sauvegarder le nuage de mots dans un fichier
-                    string cheminImage = $"../../../../nuage_{joueur.pseudo}.png";
+                    Console.WriteLine($"Chemin complet du fichier : {cheminImage}");
+                    image.Save(cheminImage, ImageFormat.Png);  /// Sauvegarde l'image au chemin spécifié
+
                     if (File.Exists(cheminImage))
                     {
-                        Process.Start("mspaint", cheminImage);
+                        Process.Start("mspaint", cheminImage);///Ouverture du fichier dans paint
                     }
                     else
                     {
@@ -254,7 +265,7 @@ namespace Projet_Algo_1
                     /// Utilisation d'ImageFormat.Png pour sauver l'image au format PNG
 
                     Console.WriteLine($"Nuage de mots sauvegardé pour {joueur.pseudo} : {cheminImage}");
-                    Process.Start("mspaint", cheminImage);///Ouverture du fichier dans paint
+                    
                 }
                 catch (Exception ex)
                 {
