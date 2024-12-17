@@ -4,7 +4,9 @@ using System.Globalization;
 using System.Drawing;
 using WordCloudSharp;
 using System.Drawing.Imaging;
+using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
 
 
 namespace Projet_Algo_1
@@ -235,12 +237,14 @@ namespace Projet_Algo_1
                     IList<string> motsTrouvés = joueur.MotsTrouvés.ToList();
                     IList<int> frequences = motsFrequencies.Values.ToList();
                     var wordCloud = new WordCloud(800, 600); /// Taille de l'image
-                    Image image = wordCloud.Draw(motsTrouvés, frequences);
+                    System.Drawing.Image image = wordCloud.Draw(motsTrouvés, frequences); /// Explicitement System.Drawing.Image
+
                     /// Sauvegarder le nuage de mots dans un fichier
                     string cheminImage = $"../../../../nuage_{joueur.pseudo}.png";
                     image.Save(cheminImage, ImageFormat.Png); /// Utilisation d'ImageFormat.Png pour sauver l'image au format PNG
 
                     Console.WriteLine($"Nuage de mots sauvegardé pour {joueur.pseudo} : {cheminImage}");
+                    Process.Start("mspaint", cheminImage);///Ouverture du fichier dans paint
                 }
                 catch (Exception ex)
                 {
@@ -248,27 +252,7 @@ namespace Projet_Algo_1
                     Console.WriteLine($"Erreur lors de la génération du nuage de mots pour {joueur.pseudo}: {ex.Message}");
                 }
             }
-            static void AfficherImage(Image image, string pseudo)
-            {
-                /// Créer une fenêtre pour afficher l'image
-                Form fenetre = new Form
-                {
-                    Text = $"Nuage de mots - {pseudo}",
-                    ClientSize = new Size(800, 600), // Taille de la fenêtre
-                    StartPosition = FormStartPosition.CenterScreen
-                };
-
-                /// Ajouter un PictureBox pour afficher l'image
-                PictureBox pictureBox = new PictureBox
-                {
-                    Dock = DockStyle.Fill, // Remplit la fenêtre
-                    Image = image,
-                    SizeMode = PictureBoxSizeMode.Zoom // Ajuste l'image à la taille de la fenêtre
-                };
-
-                fenetre.Controls.Add(pictureBox);
-                Application.Run(fenetre); // Afficher la fenêtre
-            }
+            
             #endregion
         }
     }
