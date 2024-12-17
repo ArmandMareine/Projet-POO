@@ -216,12 +216,11 @@ namespace Projet_Algo_1
             {
                 try
                 {
-                    string nomFichier = $"nuage_{joueur.pseudo}.png";
-                    string cheminImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nomFichier);  /// Utilisation du chemin absolu
+                      
                     /// Récupérer les mots trouvés et calculer leur fréquence
                     var motsFrequencies = new Dictionary<string, int>();
 
-                    /// S'assurer que la propriété MotsTrouvés existe dans la classe Joueur et est correctement initialisée
+                    
                     foreach (string mot in joueur.MotsTrouvés)
                     {
                         if (motsFrequencies.ContainsKey(mot))
@@ -240,21 +239,23 @@ namespace Projet_Algo_1
                     IList<int> frequences = motsFrequencies.Values.ToList();
                     var wordCloud = new WordCloud(800, 600); /// Taille de l'image
                     System.Drawing.Image image = wordCloud.Draw(motsTrouvés, frequences); /// Explicitement System.Drawing.Image
-                    /// Vérifier si le répertoire existe, sinon le créer
+                                                                                          /// Vérifier si le répertoire existe, sinon le créer
+                    string nomFichier = $"nuage_{joueur.pseudo}.png";
+                    string cheminImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nomFichier);
+                    string cheminimage = $"nuage_{joueur.pseudo}.png";
                     string cheminRepertoire = Path.GetDirectoryName(cheminImage);
                     if (!Directory.Exists(cheminRepertoire))
                     {
-                        Directory.CreateDirectory(cheminRepertoire);  // Crée le répertoire si nécessaire
+                        Directory.CreateDirectory(cheminRepertoire);  /// Crée le répertoire si nécessaire
                     }
-
-
+                    
                     /// Sauvegarder le nuage de mots dans un fichier
                     Console.WriteLine($"Chemin complet du fichier : {cheminImage}");
-                    image.Save(cheminImage, ImageFormat.Png);  /// Sauvegarde l'image au chemin spécifié
+                    image.Save(cheminimage, ImageFormat.Png);  /// Sauvegarde l'image au chemin spécifié
 
                     if (File.Exists(cheminImage))
                     {
-                        Process.Start("mspaint", cheminImage);///Ouverture du fichier dans paint
+                        System.Diagnostics.Process.Start("mspaint.exe", cheminimage);///Ouverture du fichier dans paint
                     }
                     else
                     {
