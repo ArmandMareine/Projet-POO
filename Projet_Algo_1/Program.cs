@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Drawing;
+using WordCloudSharp;
+using System.Drawing.Imaging;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace Projet_Algo_1
 {
@@ -39,13 +44,13 @@ namespace Projet_Algo_1
             List<Lettre> lettres = Lettre.LectureFichier(cheminFichierLettres);
 
             /// Créer les joueurs
-            Joueur[] joueurs = CreateJoueurs(nbJoueurs,lettres);
+            Joueur[] joueurs = CreateJoueurs(nbJoueurs, lettres);
             #endregion
 
             #region Plateau
             // Initialiser le plateau
             int taillePlateau = GetTaillePlateau();
-            
+
             Plateau plateau = new Plateau(taillePlateau);
             plateau.InitialiserDés(lettres);
             #endregion
@@ -58,7 +63,7 @@ namespace Projet_Algo_1
             TimeSpan dureeTours = GetTempsParTour();
 
             ///Affichage du plateau
-           /// plateau.LancerTousLesDés();
+            /// plateau.LancerTousLesDés();
 
             DateTime debutPartie = DateTime.Now;
             while (DateTime.Now - debutPartie < dureePartie)
@@ -115,11 +120,15 @@ namespace Projet_Algo_1
             /// Annonce du gagnant
             Joueur gagnant = joueurs.OrderByDescending(j => j.GetScore()).First();
             Console.WriteLine($"Le gagnant est {gagnant.pseudo} avec un score de {gagnant.GetScore()} points.");
+            foreach (var joueur in joueurs)
+            {
+                GenererNuageDeMots(joueur);
+            }
             Console.WriteLine("Fin de la partie ! Merci d'avoir joué !");
             #endregion
 
             #region Méthodes Utilitaires
-            // Méthode pour obtenir la langue du dictionnaire
+            /// Méthode pour obtenir la langue du dictionnaire
             static string GetLangueDictionnaire()
             {
                 string langue;
@@ -132,7 +141,7 @@ namespace Projet_Algo_1
                 return langue;
             }
 
-            // Méthode pour obtenir le nombre de joueurs
+            /// Méthode pour obtenir le nombre de joueurs
             static int GetNombreJoueurs()
             {
                 int nbJoueurs;
@@ -144,7 +153,7 @@ namespace Projet_Algo_1
                 return nbJoueurs;
             }
 
-            // Méthode pour créer les joueurs
+            /// Méthode pour créer les joueurs
             static Joueur[] CreateJoueurs(int nbJoueurs, List<Lettre> lettres)
             {
                 Joueur[] joueurs = new Joueur[nbJoueurs];
@@ -157,7 +166,7 @@ namespace Projet_Algo_1
                 return joueurs;
             }
 
-            // Méthode pour obtenir la taille du plateau
+            /// Méthode pour obtenir la taille du plateau
             static int GetTaillePlateau()
             {
                 int taillePlateau;
@@ -169,7 +178,7 @@ namespace Projet_Algo_1
                 return taillePlateau;
             }
 
-            // Méthode pour obtenir le temps de la partie
+            /// Méthode pour obtenir le temps de la partie
             static TimeSpan GetTempsDePartie()
             {
                 int dureePartieMinutes;
@@ -181,7 +190,7 @@ namespace Projet_Algo_1
                 return TimeSpan.FromMinutes(dureePartieMinutes);
             }
 
-            // Méthode pour obtenir la durée des tours
+            /// Méthode pour obtenir la durée des tours
             static TimeSpan GetTempsParTour()
             {
                 int dureeTourSecondes;
@@ -193,183 +202,85 @@ namespace Projet_Algo_1
                 return TimeSpan.FromSeconds(dureeTourSecondes);
             }
 
-            // Méthode pour demander un mot au joueur
+            /// Méthode pour demander un mot au joueur
             static string DemanderMotPlateau()
             {
                 Console.WriteLine("Entrez un mot à former avec les lettres du plateau:");
                 return Console.ReadLine()?.ToUpper();
             }
             #endregion
-
-
-
-
-
-            /*
-            string cheminFichier = "../../../../MotsPossiblesFR.txt";
-            string cheminFichier5 = "../../../../MotsPossiblesEN.txt";
-            Console.Write(cheminFichier+ "\n");
-            string Langue = "Français";
-            Dictionnaire test = new Dictionnaire(cheminFichier,Langue);
-            List<string> list = test.ChargerMots(cheminFichier);
-            Dictionary<char, int> compteur = test.TriParLettres();
-            Dictionary<int , int> compteur1 = test.TriParLongueur();
-            string res = test.toString(compteur,compteur1);
-            Console.WriteLine(res);
-            ///Test lecturefichier mots
-            List<string> tri = Tri_Fichier_2.TriparFusion(list);
-            Console.WriteLine(Tri_Fichier_2.RechercheDichotomique(tri,"Zoo"));
-            int taille1 = 4;
-            string cheminFichier2 = "../../../../lettres.txt";
-            List<Lettre> lettres = Lettre.LectureFichier(cheminFichier2);
-            
-            /// Affiche les lettres importées
-            if (lettres.Count > 0)
+            #region nuage de mot
+            static void GenererNuageDeMots(Joueur joueur)
             {
-                Console.WriteLine("Lettres importées avec succès !");
-            }
-            else
-            {
-                Console.WriteLine("Aucune lettre n'a été importée.");
-            }
-            
-
-           
-
-            /*
-           foreach (string str in tri)
-           {
-               Console.WriteLine(string.Join(",", tri));
-           }
-           Console.WriteLine("Ok");
-
-
-
-           foreach (string mot in list)
-           {
-               Console.WriteLine(mot);
-           }
-           */
-
-
-
-
-
-
-
-            ////////////////////////////////////////////////////////////////////////
-            //Fin de la zone de test : Début du jeu 
-            ///Console.WriteLine("Bienvenue au jeu du Boggle ! ");
-            ///Définition des chemins fichiers à rajouter (le lettre)
-            ///Défintion des timers
-            /*
-            Console.Write("Saisir la langue désirée (Anglais ou Français):");///On définit la langue utilisée
-            string langue = Convert.ToString(Console.ReadLine());
-            string EN = "Anglais";
-            string FR = "Français";
-            bool fr = FR.Equals(langue);
-            bool en = EN.Equals(langue);
-            if (fr)
-            {
-                cheminFichier = "../../../../MotsPossiblesFR.txt";///On initialise le fichier français
-
-            }
-            else if (en)
-            {
-                cheminFichier = "../../../../MotsPossiblesEN.txt";///On initialise le fichier anglais
-            }
-            else
-            {
-                do
+                try
                 {
-                    Console.Write("Le format est incorrect ! Format attendu : Anglais ou Français  ");///En cas d'erreur de saisie, on recommence
-                    langue = Convert.ToString(Console.ReadLine());
-                } while (!fr && !en);
-            }///Test de la bonne saisie des langues 
-            
-            if (langue == "Anglais" || langue == "Français")
-            {
-                Console.Write("Saisir le nombre de joueurs voulus (Attention, le minimum est 2 et le maximum 10) : ");///On saisit le nombre de joueurs
-                int nbjoueurs = int.Parse(Console.ReadLine());
-                Joueur[] joueurs = new Joueur[nbjoueurs];///Définition d'un tableau de joueur pour contenir les informations chaque participant
-                int score = 0;
-                for (int i = 0; i < nbjoueurs; i++)
-                {
-                    Console.Write($"Saisir le pseudo du joueur {i + 1} : ");
-                    string pseudo = Convert.ToString(Console.ReadLine());
-                    joueurs[i] = new Joueur(i + 1, pseudo, score);///On remplit le tableau de joueurs avec les pseudos de le numéro de chaque joueur
-                }
-                Console.WriteLine("Les joueurs sont donc : ");
-                foreach (var joueur in joueurs)///Affichage de tous les joueurs
-                {
-                    Console.WriteLine(joueur.ToString());
-                }
-                Console.Write("Entrez la taille du plateau (par exemple, 4 pour un plateau 4x4) : ");///Initialisation de la taille du plateau
-                int taille = int.Parse(Console.ReadLine());
-                Console.Write("Saisir le temps désiré pour la partie en minutes (par exemple, 2 pour 2 minutes de partie): ");
-                int tempstotal = int.Parse(Console.ReadLine()) * 60;
-                TimeSpan dureetotale = TimeSpan.FromMinutes(tempstotal);///Initialisation du premier timer, le timer pour le jeu total
-                Console.Write("Saisir le temps de jeu par joueur en minutes (par exemple, 1 pour 1 minute de jeu) :");
-                int tempsjoueur = int.Parse(Console.ReadLine()) * 60;
-                TimeSpan dureeparjoueur = TimeSpan.FromMinutes(tempsjoueur); ///Initialisation du temps de jeu par joueur à une valeur par défaut de 1 minute
-                Console.WriteLine($"Le temps total de la partie est donc de : {dureetotale} minutes");
-                Console.WriteLine($"Le temps de jeu pour chaque joueur est de : {dureeparjoueur}");
-                ///Début du jeu 
-                Console.WriteLine("La partie commence ! ");
-                DateTime debutPartie = DateTime.Now;///Initialisation du début de la partie au moment de son lancement
+                    /// Récupérer les mots trouvés et calculer leur fréquence
+                    var motsFrequencies = new Dictionary<string, int>();
 
-                while (DateTime.Now - debutPartie < dureetotale)
-                {
-                    for (int i = 0; i < joueurs.Length; i++)
+                    /// S'assurer que la propriété MotsTrouvés existe dans la classe Joueur et est correctement initialisée
+                    foreach (string mot in joueur.MotsTrouvés)
                     {
-                        Console.WriteLine($"C'est au tour du joueur {i + 1} : {joueurs[i]} de jouer !");///On donne le temps de jeu au joueur
-                        Console.WriteLine($"Ton temps de jeu est de {tempsjoueur / 60} minutes");///On donne le temps de jeu au joueur 
-                        Console.WriteLine("Voici ton plateau :");
-                        ///Affichage du plateau
-                        ///SUITE DU JEU
-
-
-
-
-
-
-                    }
-
-
-                    DateTime debutTour = DateTime.Now;
-                    while (true)///Test en permanence
-                    {
-
-                        if (DateTime.Now - debutTour > dureeparjoueur)///On teste si le temps de jeu du joueur est écoulé
+                        if (motsFrequencies.ContainsKey(mot))
                         {
-                            Console.WriteLine("Le temps pour le joueur X est écoulé");
-                            break;
+                            motsFrequencies[mot]++;
                         }
-                        if (Console.KeyAvailable)///Si le joueur appuie sur une touche, la boucle s'arrête 
+                        else
                         {
-                            Console.ReadKey();
-                            Console.WriteLine("Action du joueur enregistrée");
-                            break;
+                            motsFrequencies[mot] = 1;
                         }
                     }
-                    if (DateTime.Now - debutPartie > dureetotale)///Fin du jeu : test
-                    {
-                        Console.WriteLine("Temps total du jeu du Boggle écoulé ! ");
-                        break;
-                    }
-                    
 
+                    /// Initialisation du WordCloud
+                    /// Conversion nécessaire
+                    IList<string> motsTrouvés = joueur.MotsTrouvés.ToList();
+                    IList<int> frequences = motsFrequencies.Values.ToList();
+                    var wordCloud = new WordCloud(800, 600); /// Taille de l'image
+                    Image image = wordCloud.Draw(motsTrouvés, frequences);
+                    /// Sauvegarder le nuage de mots dans un fichier
+                    string cheminImage = $"../../../../nuage_{joueur.pseudo}.png";
+                    image.Save(cheminImage, ImageFormat.Png); /// Utilisation d'ImageFormat.Png pour sauver l'image au format PNG
+
+                    Console.WriteLine($"Nuage de mots sauvegardé pour {joueur.pseudo} : {cheminImage}");
                 }
-           
-                Console.WriteLine("Fin de la partie ! Merci ! ");///Affichage fin de partie 
+                catch (Exception ex)
+                {
+                    /// Capture des exceptions pour gérer les erreurs éventuelles
+                    Console.WriteLine($"Erreur lors de la génération du nuage de mots pour {joueur.pseudo}: {ex.Message}");
+                }
+            }
+            static void AfficherImage(Image image, string pseudo)
+            {
+                /// Créer une fenêtre pour afficher l'image
+                Form fenetre = new Form
+                {
+                    Text = $"Nuage de mots - {pseudo}",
+                    ClientSize = new Size(800, 600), // Taille de la fenêtre
+                    StartPosition = FormStartPosition.CenterScreen
+                };
 
-            
-            }  
-            */
+                /// Ajouter un PictureBox pour afficher l'image
+                PictureBox pictureBox = new PictureBox
+                {
+                    Dock = DockStyle.Fill, // Remplit la fenêtre
+                    Image = image,
+                    SizeMode = PictureBoxSizeMode.Zoom // Ajuste l'image à la taille de la fenêtre
+                };
 
+                fenetre.Controls.Add(pictureBox);
+                Application.Run(fenetre); // Afficher la fenêtre
+            }
+            #endregion
         }
-
     }
-   
 }
+
+
+
+
+
+    
+
+   
+   
+
 

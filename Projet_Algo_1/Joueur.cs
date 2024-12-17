@@ -10,8 +10,8 @@ namespace Projet_Algo_1
     {
         private int Numero { get; set; }
         public string pseudo { get; set; }
-        private int score { get; set; } 
-        private HashSet<string> Motstrouvés { get; set; }
+        private int score { get; set; }
+        private HashSet<string> Motstrouvés;
 
         private Dictionary<char, int> valeurLettres;
 
@@ -23,7 +23,10 @@ namespace Projet_Algo_1
             Motstrouvés = new HashSet<string>();
             valeurLettres = lettres.ToDictionary(l => l.Caractere , l => l.Valeur);
         }
-
+        public HashSet<string> MotsTrouvés
+        {
+           get { return Motstrouvés; }
+        }
         public int GetScore()
         {
             return score;
