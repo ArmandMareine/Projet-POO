@@ -241,7 +241,17 @@ namespace Projet_Algo_1
 
                     /// Sauvegarder le nuage de mots dans un fichier
                     string cheminImage = $"../../../../nuage_{joueur.pseudo}.png";
-                    image.Save(cheminImage, ImageFormat.Png); /// Utilisation d'ImageFormat.Png pour sauver l'image au format PNG
+                    if (File.Exists(cheminImage))
+                    {
+                        Process.Start("mspaint", cheminImage);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Le fichier {cheminImage} n'a pas été trouvé.");
+                    }
+
+
+                    /// Utilisation d'ImageFormat.Png pour sauver l'image au format PNG
 
                     Console.WriteLine($"Nuage de mots sauvegardé pour {joueur.pseudo} : {cheminImage}");
                     Process.Start("mspaint", cheminImage);///Ouverture du fichier dans paint
