@@ -20,25 +20,25 @@ namespace Projet_Algo_1
 
             #region Choix de la langue du dictionnaire
 
-            // Demander le choix de la langue jusqu'à ce que l'utilisateur entre une langue valide
+            /// Demander le choix de la langue jusqu'à ce que l'utilisateur entre une langue valide
             langue = GetLangueDictionnaire();
 
-            // Définir le chemin du fichier de dictionnaire en fonction de la langue choisie
+            /// Définir le chemin du fichier de dictionnaire en fonction de la langue choisie
             cheminFichierMots = langue == "Français" ? "../../../../MotsPossiblesFR.txt" : "../../../../MotsPossiblesEN.txt";
 
-            // Chargement du dictionnaire
+            /// Chargement du dictionnaire
             Dictionnaire dictionnaire = new Dictionnaire(cheminFichierMots, langue);
             List<string> mots = dictionnaire.ChargerMots(cheminFichierMots);
             #endregion
 
             #region Joueurs
-            // Demander le nombre de joueurs
+            /// Demander le nombre de joueurs
             int nbJoueurs = GetNombreJoueurs();
 
-            ///Création des joueurs
+            ///Lecture du fichier lettres
             List<Lettre> lettres = Lettre.LectureFichier(cheminFichierLettres);
 
-            // Créer les joueurs
+            /// Créer les joueurs
             Joueur[] joueurs = CreateJoueurs(nbJoueurs,lettres);
             #endregion
 
