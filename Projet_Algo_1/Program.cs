@@ -13,6 +13,7 @@ namespace Projet_Algo_1
             string cheminFichierMots;
             string cheminFichierLettres = "../../../../lettres.txt";
             #endregion
+
             #region Annonce jeu
             Console.WriteLine("Bienvenue dans le jeu du Boggle ! Ce jeu a été conçu par Aubin Lin et Armand Mareine. Bonne partie !");
             #endregion
@@ -34,17 +35,19 @@ namespace Projet_Algo_1
             // Demander le nombre de joueurs
             int nbJoueurs = GetNombreJoueurs();
 
+            ///Création des joueurs
+            List<Lettre> lettres = Lettre.LectureFichier(cheminFichierLettres);
+
             // Créer les joueurs
-            Joueur[] joueurs = CreateJoueurs(nbJoueurs);
+            Joueur[] joueurs = CreateJoueurs(nbJoueurs,lettres);
             #endregion
 
             #region Plateau
             // Initialiser le plateau
             int taillePlateau = GetTaillePlateau();
-            List<Lettre> lettres = Lettre.LectureFichier(cheminFichierLettres);
+            
             Plateau plateau = new Plateau(taillePlateau);
             plateau.InitialiserDés(lettres);
-            plateau.LancerTousLesDés();
             #endregion
 
             #region Déroulé du jeu
@@ -54,9 +57,8 @@ namespace Projet_Algo_1
             /// Demander la durée des tours
             TimeSpan dureeTours = GetTempsParTour();
 
-            /// Initialisation du jeu
-            List<string> tri = Tri_Fichier_2.TriparFusion(mots);
-            Console.WriteLine(Tri_Fichier_2.RechercheDichotomique(tri, "Zoo"));
+            ///Affichage du plateau
+            plateau.LancerTousLesDés();
 
             DateTime debutPartie = DateTime.Now;
             while (DateTime.Now - debutPartie < dureePartie)
@@ -143,14 +145,14 @@ namespace Projet_Algo_1
             }
 
             // Méthode pour créer les joueurs
-            static Joueur[] CreateJoueurs(int nbJoueurs)
+            static Joueur[] CreateJoueurs(int nbJoueurs, List<Lettre> lettres)
             {
                 Joueur[] joueurs = new Joueur[nbJoueurs];
                 for (int i = 0; i < joueurs.Length; i++)
                 {
                     Console.WriteLine($"Saisir le pseudo du joueur n°{i + 1} : ");
                     string pseudo = Console.ReadLine()?.Trim();
-                    joueurs[i] = new Joueur(i + 1, pseudo, 0, new List<Lettre>());
+                    joueurs[i] = new Joueur(i + 1, pseudo, 0, lettres);
                 }
                 return joueurs;
             }

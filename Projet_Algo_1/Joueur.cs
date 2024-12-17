@@ -72,7 +72,16 @@ namespace Projet_Algo_1
             {
                 if (valeurLettres.ContainsKey(lettre))
                 {
-                    pointstotal += valeurLettres[lettre];
+                    int pointsLettre = valeurLettres[lettre];
+                    pointstotal += pointsLettre;
+
+                    /// Affiche des informations pour déboguer
+                    Console.WriteLine($"Lettre : {lettre}, points : {pointsLettre}");
+                }
+                else
+                {
+                    /// Affiche si la lettre n'est pas trouvée dans le dictionnaire
+                    Console.WriteLine($"Lettre '{lettre}' non trouvée dans le dictionnaire.");
                 }
             }
             return pointstotal;
