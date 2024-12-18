@@ -239,18 +239,18 @@ namespace Projet_Algo_1
                     IList<int> frequences = motsFrequencies.Values.ToList();
                     var wordCloud = new WordCloud(800, 600); /// Taille de l'image
                     System.Drawing.Image image = wordCloud.Draw(motsTrouvés, frequences); /// Explicitement System.Drawing.Image
-                                                                                          /// Vérifier si le répertoire existe, sinon le créer
+                                                                                         
                     string nomFichier = $"nuage_{joueur.pseudo}.png";
                     string cheminImage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, nomFichier);
                     string cheminimage = $"nuage_{joueur.pseudo}.png";
-                    string cheminRepertoire = Path.GetDirectoryName(cheminImage);
+                    string cheminRepertoire = Path.GetDirectoryName(cheminImage); /// Vérifier si le répertoire existe, sinon le créer
                     if (!Directory.Exists(cheminRepertoire))
                     {
                         Directory.CreateDirectory(cheminRepertoire);  /// Crée le répertoire si nécessaire
                     }
                     
                     /// Sauvegarder le nuage de mots dans un fichier
-                    Console.WriteLine($"Chemin complet du fichier : {cheminImage}");
+                    ///Console.WriteLine($"Chemin complet du fichier : {cheminImage}");
                     image.Save(cheminimage, ImageFormat.Png);  /// Sauvegarde l'image au chemin spécifié
 
                     if (File.Exists(cheminImage))
@@ -265,7 +265,7 @@ namespace Projet_Algo_1
 
                     /// Utilisation d'ImageFormat.Png pour sauver l'image au format PNG
 
-                    Console.WriteLine($"Nuage de mots sauvegardé pour {joueur.pseudo} : {cheminImage}");
+                    ///Console.WriteLine($"Nuage de mots sauvegardé pour {joueur.pseudo} : {cheminImage}");
                     
                 }
                 catch (Exception ex)

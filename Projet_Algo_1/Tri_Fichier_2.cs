@@ -28,7 +28,7 @@ namespace Projet_Algo_1
 
         }
 
-      
+        
         public static List<string> LectureFichierMots(string cheminFichier)
         {
             if (!File.Exists(cheminFichier))

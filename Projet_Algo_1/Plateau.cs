@@ -42,23 +42,23 @@ namespace Projet_Algo_1
         {
             Random random = new Random();
 
-            // Remplissage du plateau avec les dés
+            /// Remplissage du plateau avec les dés
             for (int i = 0; i < taille; i++)
             {
                 for (int j = 0; j < taille; j++)
                 {
                     if (plateau[i, j] != null)
                     {
-                        plateau[i, j].Lance(random);  // Lancer le dé pour choisir une face visible
+                        plateau[i, j].Lance(random);  /// Lancer le dé pour choisir une face visible
                     }
                     else
                     {
-                        plateau[i, j] = null;  // Cas où il n'y a pas assez de dés
+                        plateau[i, j] = null;  /// Cas où il n'y a pas assez de dés
                     }
                 }
             }
 
-            // Affichage du plateau
+            /// Affichage du plateau
             for (int i = 0; i < taille; i++)
             {
                 Console.Write("| ");
@@ -66,11 +66,11 @@ namespace Projet_Algo_1
                 {
                     if (plateau[i, j] != null)
                     {
-                        Console.Write(plateau[i, j].ToString() + " | ");  // Afficher la face visible du dé
+                        Console.Write(plateau[i, j].ToString() + " | ");  /// Affiche la face visible du dé
                     }
                     else
                     {
-                        Console.Write("[ ]\t");  // Case vide
+                        Console.Write("[ ]\t");  /// Case vide
                     }
                 }
                 Console.WriteLine();
@@ -97,7 +97,7 @@ namespace Projet_Algo_1
                     }
                     else
                     {
-                        Console.WriteLine($"Erreur : Le dé à la position ({i},{j}) ou sa face visible est nulle.");
+                        Console.WriteLine($"Erreur : Le dé à la position ({i},{j}) ou face visible nulle.");
                         return false;  /// Retourner false si une case est vide ou mal initialisée
                     }
                 }
@@ -106,26 +106,32 @@ namespace Projet_Algo_1
             int[] dirx = { -1, -1, -1, 0, 1, 1, 1, 0 };
             int[] diry = { -1, 0, 1, -1, -1, 0, 1, 1 };
             ///On crée une fonction récursive pour la recherche du mot
-            bool TrouverMot(int i, int j, int index)
+            bool TrouverMot(int i, int j, int index, bool[,]Caseparcourue)///On ajoute un tableau de Booléen qui va marquer de true le passage de chaque case afin d'empêcher les retours en arrière
             {
                 ///Distinguons le cas où toutes les lettres du mot sont trouvées
                 if (index == mot.Length)
                 {
                     return true;
                 }
+                Caseparcourue[i, j] = true;
                 ///Nous vérifions ensuite les cases voisines du mot recherché
                 for (int k = 0; k < 8; k++)///8 car 8 cas possible
                 {
                     int novi = i + dirx[k];
                     int novj = j + diry[k];///Les nouvelles cases
 
-                    if (novi >= 0 && novi < lignes && novj >= 0 && novj < colonnes && plateauChars[novi, novj] == mot[index])
+                    if (novi >= 0 && novi < lignes && novj >= 0 && novj < colonnes && !Caseparcourue[novi,novj] &&plateauChars[novi, novj] == mot[index])
                     {
-                        if (TrouverMot(novi, novj, index + 1))  /// Recherche récursive
+                        if (TrouverMot(novi, novj, index + 1, Caseparcourue))
+                        {
                             return true;
+                        }  /// Recherche récursive
+                            
                     }
 
                 }
+                ///On marque la case comme non parcourue afin de permettre d'autres chemins
+                Caseparcourue[i, j] = false;
                 return false;
             }
             ///On recherche la première lettre du mot à trouver et on appelle la fonction récursive
@@ -133,7 +139,8 @@ namespace Projet_Algo_1
             {
                 for (int j = 0; j < colonnes; j++)
                 {
-                    if (plateauChars[i, j] == mot[0] && TrouverMot(i, j, 1))
+                    bool[,] Caseparcourue = new bool[lignes, colonnes];///On initialise le tableau de Booléen permettant de marquer le passage sur chaque case 
+                    if (plateauChars[i, j] == mot[0] && TrouverMot(i, j, 1, Caseparcourue))
                     {
                         return true;
                     }
@@ -141,11 +148,11 @@ namespace Projet_Algo_1
             }
             return false;/// Mot non trouvé
         }
-        public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)
+        public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)///Méthode qui va faire appel à la méthode de recherche dichotomique dans la liste triée afin de vérifier que le mot recherché s'y trouve bien
         {
             string cheminfichier = langue == "Français" ? cheminfichier1 : cheminfichier2;
 
-            if (string.IsNullOrEmpty(cheminfichier) || !File.Exists(cheminfichier))
+            if (string.IsNullOrEmpty(cheminfichier) || !File.Exists(cheminfichier))///Vérification de l'existance du chemin menant au fichier texte
             {
                 Console.WriteLine($"Le fichier du dictionnaire n'existe pas : {cheminfichier}");
                 return false;
@@ -153,18 +160,18 @@ namespace Projet_Algo_1
 
             Dictionnaire dictionnaire = new Dictionnaire(cheminfichier, langue);
             List<string> mots = dictionnaire.ChargerMots(cheminfichier);
-            List<string> tri = Tri_Fichier_2.TriparFusion(mots);
+            List<string> tri = Tri_Fichier_2.TriparFusion(mots);///Appel du tri fusion préalable à la recherche dichotomique 
 
             /// Assurez-vous que le mot recherché est en majuscules, ou bien le mot du dictionnaire est normalisé
             mot = mot.ToUpper();
 
-            return RechercheDichotomique(tri, mot);
+            return RechercheDichotomique(tri, mot);///Appel de la recherche dichotomique
         }
 
 
         public static bool RechercheDichotomique(List<string> list, string motRechercher)///Algorithme sélectionné pour la recherche dichotomique 
         {
-            // Trier la liste avant de faire la recherche
+            /// Trier la liste avant de faire la recherche
             list.Sort(StringComparer.OrdinalIgnoreCase);
 
             int debut = 0;
