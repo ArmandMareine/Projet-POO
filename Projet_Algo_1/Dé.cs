@@ -16,7 +16,10 @@ namespace Projet_Algo_1
         public Dé(List<Lettre> faces)
         {
             if (faces.Count != 6)
+            {
                 throw new ArgumentException("Erreur. Un dé doit avoir exactement 6 faces.");
+            }
+               
 
             this.faces = faces;
             Lance(new Random()); /// Tire une face au hasard à l'initialisation

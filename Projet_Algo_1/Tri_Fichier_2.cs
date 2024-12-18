@@ -72,8 +72,72 @@ namespace Projet_Algo_1
             }
             return mots;
         }
-        
-        
+
+        /// <summary>
+        /// Méthode 2 pour le tri du fichier : par sous listes contenant tous les mots d'une liste 
+        /// </summary>
+        /// <param name="cheminFichier"></param>
+        /// <returns></returns>
+        public static List<List<string>> TriMotsParPremièreLettre(string cheminFichier)
+        {
+            
+            List<List<string>> listetriée = new List<List<string>>();///On initialise la liste de départ
+            for(int i =0; i<26; i++)
+            {
+                listetriée.Add(new List<string>());
+            }
+            
+            try
+            {
+                if (!File.Exists(cheminFichier))
+                {
+                    Console.WriteLine("Le fichier n'existe pas : " + cheminFichier);
+
+                }
+                using (StreamReader sr = new StreamReader(cheminFichier))
+                {
+                    string ligne;
+                    while ((ligne = sr.ReadLine()) != null)
+                    {
+                        if (!string.IsNullOrEmpty(ligne))
+                        {
+                            string[] mots = ligne.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                            foreach (string mot in mots)
+                            {
+                                string motTrimmed = mot.Trim();
+
+                                if (!string.IsNullOrEmpty(motTrimmed))
+                                {
+                                    /// Récupérer la première lettre en minuscule
+                                    char premiereLettre = char.ToLower(motTrimmed[0]);
+
+                                    /// On vérifie si c'est la première lettre de l'alphabet
+                                    if (premiereLettre >= 'a' && premiereLettre <= 'z')
+                                    {
+                                        /// On ajoute le mot dans la sous liste correspondante
+                                        listetriée[premiereLettre - 'a'].Add(motTrimmed);
+                                    }
+                                }
+                            }
+                        }
+                        sr.Close();
+                    }
+                }
+            }
+            catch (FileNotFoundException)///Exécute ce bloc si l'exception FileNotFoundException est relevée, soit que le fichier n'a pas été trouvé
+            {
+                Console.WriteLine($"Erreur : Le fichier '{cheminFichier}' est introuvable.");
+            }
+            catch (UnauthorizedAccessException)///Exécute ce bloc si l'exception UnauthorizedAccessException est relevée, soit que l'accès n'est pas autorisé
+            {
+                Console.WriteLine($"Erreur : Accès non autorisé au fichier '{cheminFichier}'.");
+            }
+            catch (Exception ex)///Attrape toutes les autres exceptions
+            {
+                Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
+            }
+            return listetriée;
+        }
 
         public static List<string> TriparFusion(List<string> Mots)///Tri par fusion sur le fichier de mots 
         {

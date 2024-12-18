@@ -25,10 +25,6 @@ namespace Projet_Algo_1
             ChargerMots(cheminFichier);
         }
 
-
-
-
-
         /// <summary>
         /// Charge les mots d'un fichier dans la liste des mots du dictionnaire.
         /// </summary>
@@ -76,10 +72,6 @@ namespace Projet_Algo_1
 
             return Mots;
         }
-
-
-
-
 
 
         /// <summary>

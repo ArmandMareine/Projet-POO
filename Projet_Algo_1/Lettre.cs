@@ -13,15 +13,12 @@ namespace Projet_Algo_1
         private char caractere;
         private int valeur;
         private int nombre; 
-        //private double poids; NEUTRALISE car pas encore fonctionnel 
 
-        
         public Lettre(char caractere, int valeur, int nombre)///Constrcuteur naturel de la classe Lettre
         {
             this.caractere = caractere;
             this.valeur = valeur;
             this.nombre = nombre;
-            //this.poids = poids;
             
         }
         ///Propriétés en Get pour les attributs
@@ -33,12 +30,7 @@ namespace Projet_Algo_1
         {
             get { return valeur; }
         }
-        /*
-        public double Poids
-        {
-            get { return poids; }
-        }
-        */
+        
         public char Caractere
         {
             get { return caractere; }   
@@ -69,7 +61,7 @@ namespace Projet_Algo_1
                         {
                             try
                             {
-                                char caractere = parties[0][0]; // Premier caractère de la chaîne
+                                char caractere = parties[0][0]; /// Premier caractère de la chaîne
                                 int valeur = int.Parse(parties[1]);
                                 int nombre = int.Parse(parties[2]);
                                 
@@ -88,14 +80,7 @@ namespace Projet_Algo_1
                     }
                 }
 
-                /// Affiche toutes les lettres pour vérification
-                /*
-                Console.WriteLine("Lettres importées :");
-                foreach (var lettre in lettres)
-                {
-                    Console.WriteLine(lettre.ToString());
-                }
-                */
+                
             }
             catch (Exception ex)
             {
