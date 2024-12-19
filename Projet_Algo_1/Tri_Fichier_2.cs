@@ -84,19 +84,16 @@ namespace Projet_Algo_1
         /// <returns></returns>
         public static List<List<string>> TriMotsParPremièreLettre(string cheminFichier)
         {
-            
             List<List<string>> listetriée = new List<List<string>>();///On initialise la liste de départ
             for(int i =0; i<26; i++)
             {
                 listetriée.Add(new List<string>());
             }
-            
             try
             {
                 if (!File.Exists(cheminFichier))
                 {
                     Console.WriteLine("Le fichier n'existe pas : " + cheminFichier);
-
                 }
                 using (StreamReader sr = new StreamReader(cheminFichier))
                 {
@@ -112,14 +109,12 @@ namespace Projet_Algo_1
 
                                 if (!string.IsNullOrEmpty(motTrimmed))
                                 {
-                                    /// Récupérer la première lettre en minuscule
-                                    char premiereLettre = char.ToLower(motTrimmed[0]);
+                                    char premiereLettre = char.ToLower(motTrimmed[0]);/// Récupérer la première lettre en minuscule
 
                                     /// On vérifie si c'est la première lettre de l'alphabet
                                     if (premiereLettre >= 'a' && premiereLettre <= 'z')
                                     {
-                                        /// On ajoute le mot dans la sous liste correspondante
-                                        listetriée[premiereLettre - 'a'].Add(motTrimmed);
+                                          listetriée[premiereLettre - 'a'].Add(motTrimmed);/// On ajoute le mot dans la sous liste correspondante
                                     }
                                 }
                             }
@@ -287,6 +282,10 @@ namespace Projet_Algo_1
                 Quick_Sort(list, pivotIndex + 1, fin);   /// Après le pivot
             }
         }
+        /// <summary>
+        /// Méthode 3 Tri : Tri à bulles 
+        /// </summary>
+        /// <param name="list"></param>
         public static void TriABulles(List<string> list)
         {
             int n=list.Count;

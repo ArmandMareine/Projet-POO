@@ -142,16 +142,10 @@ namespace Projet_Algo_1
             return Mots.Contains(mot, StringComparer.OrdinalIgnoreCase);///Retourne true si le mot 'mot' passé en paramètre est contenu dans la liste de mots 'Mots' tout en ignorant si les lettres du mot est sont majuscules ou pas, False sinon
         }
 
-
-
-
-
         public List<string> ObtenirTousLesMots()///Retourne une copie de la liste pour éviter des changements non-voulus dans la liste originale
         {
             return new List<string>(Mots);
         }
-
-
         /// <summary>
         /// Trie le dictionnaire "compteur" par ordre alphabétique
         /// </summary>
@@ -171,7 +165,6 @@ namespace Projet_Algo_1
         {
             return dict.OrderBy(entry => entry.Key).ToDictionary(entry => entry.Key, entry => entry.Value);
         }
-
 
         public string toString(Dictionary<char, int> compteur,Dictionary<int,int> compteur1)///Fonction à finir avec une méthode de tri par lettre et par longueur de mot
         {

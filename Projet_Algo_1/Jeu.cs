@@ -107,11 +107,12 @@ namespace Projet_Algo_1
 
                 if (DateTime.Now - debutPartie > dureePartie)///Test temporel
                 {
+                    FindePartie();///On appelle la fin de partie
                     Console.WriteLine("Le temps de la partie est écoulé !");
                     break;
                 }
             }
-            FindePartie();///On appelle la fin de partie
+            
         }
         /// <summary>
         /// Fonction pour retourner la langue utilisée pour le dictionnaire
@@ -309,8 +310,6 @@ namespace Projet_Algo_1
             Console.WriteLine("Clique sur une touche du clavier pour quitter le jeu et la console ! ");
             return;
         }
-       
-
 
     }
 }
