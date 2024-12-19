@@ -100,7 +100,7 @@ namespace Projet_Algo_1
             int lignes = plateau.GetLength(0);
             int colonnes = plateau.GetLength(1);
 
-            ///On assure une conversion en plateau de char
+            /// On assure une conversion en plateau de char
             char[,] plateauChars = new char[lignes, colonnes];
 
             for (int i = 0; i < lignes; i++)
