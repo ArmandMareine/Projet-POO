@@ -14,12 +14,17 @@ namespace Projet_Algo_1
         private int taille;
         private Dé[,] plateau; /// On ajoute directement la matrice de dés
 
-
+        
+        
         public Plateau(int taille)
         {
             this.taille = taille;
             this.plateau = new Dé[taille, taille];
         }
+        /// <summary>
+        /// Méthode pour initialiser les dés 
+        /// </summary>
+        /// <param name="facespondérées"></param>
         public void InitialiserDés(List<Lettre> facespondérées)
         {
             Random random = new Random();

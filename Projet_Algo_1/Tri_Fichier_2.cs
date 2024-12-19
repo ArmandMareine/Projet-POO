@@ -28,7 +28,11 @@ namespace Projet_Algo_1
 
         }
 
-        
+        /// <summary>
+        /// Méthode 1 pour le tri
+        /// </summary>
+        /// <param name="cheminFichier"></param>
+        /// <returns></returns>
         public static List<string> LectureFichierMots(string cheminFichier)
         {
             if (!File.Exists(cheminFichier))
@@ -139,6 +143,12 @@ namespace Projet_Algo_1
             return listetriée;
         }
 
+        /// <summary>
+        /// Méthode 1 : Tri Fusion 
+        /// </summary>
+        /// <param name="Mots"></param>
+        /// <returns></returns>
+
         public static List<string> TriparFusion(List<string> Mots)///Tri par fusion sur le fichier de mots 
         {
             if (Mots.Count <= 1) /// Si la liste contient 0 ou 1 élément, elle est déjà triée donc on retourne la liste 
@@ -158,6 +168,11 @@ namespace Projet_Algo_1
             return Fusionner(Gauche, Droite);
         }
 
+        /// <summary>
+        /// Méthode de tri Fusion
+        /// </summary>
+        /// <param name="Gauche">Tableau de gauche</param>
+        /// <param name="Droite">Tableau de droite</param>
         public static List<string> Fusionner(List<string> Gauche, List<string> Droite)
         {
             List<string> res = new List<string>(Gauche.Count + Droite.Count);
@@ -225,7 +240,13 @@ namespace Projet_Algo_1
 
             return false; /// Élément non trouvé
         }
-        ///Méthode de tri 2 : Tri Quicksort
+        /// <summary>
+        /// Méthode 2 de tri : Tri Quicksort
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="debut"></param>
+        /// <param name="fin"></param>
+        /// <returns></returns>
         public static int Partionner(List<string> list, int debut, int fin)
         {
             
@@ -265,6 +286,26 @@ namespace Projet_Algo_1
                 Quick_Sort(list, debut, pivotIndex - 1); /// Avant le pivot
                 Quick_Sort(list, pivotIndex + 1, fin);   /// Après le pivot
             }
+        }
+        public static void TriABulles(List<string> list)
+        {
+            int n=list.Count;
+            bool b=false;
+            do
+            {
+                b = true;
+                for(int i = 0; i < n - 1; i++)
+                {
+                    if (string.Compare(list[i], list[i+1], StringComparison.Ordinal) > 0)
+                    {
+                        string temp = list[i]; 
+                        list[i] = list[i + 1];
+                        list[i + 1] = temp;
+                        b = false;
+                    }
+                }
+                n--;
+            } while (!b);
         }
 
     }
