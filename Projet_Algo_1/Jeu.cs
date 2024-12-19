@@ -11,7 +11,9 @@ namespace Projet_Algo_1
 {
     public  class Jeu
     {
-        ///Déclaration des arguments
+        /// <summary>
+        /// Déclaration des arguments de la classe Jeu
+        /// </summary>
         private string langue;
         private string cheminFichierMots;
         private string cheminFichierLettres = "../../../../lettres.txt";
@@ -19,12 +21,16 @@ namespace Projet_Algo_1
         private Plateau plateau;
         private TimeSpan dureePartie;
         private TimeSpan dureeTours;
-
+        /// <summary>
+        /// Constructeur naturel de la classe Jeu
+        /// </summary>
         public Jeu()
         {
             InitialiserParamètresJeu();
         }
-        
+        /// <summary>
+        /// Méthode pour initialiser les différents paramètres nécessaires au lancement du jeu
+        /// </summary>
         public void InitialiserParamètresJeu()
         {
             Console.WriteLine("Bienvenue dans le jeu du Boggle ! Ce jeu a été conçu par Aubin Lin et Armand Mareine. Bonne partie !");
@@ -48,7 +54,9 @@ namespace Projet_Algo_1
 
             DérouléJeu();///Lancement du jeu
             return;
-        }
+        }/// <summary>
+        /// Méthode pour le déroulé du jeu 
+        /// </summary>
         public void DérouléJeu()
         {
             Console.WriteLine($"La partie commence ! Vous avez {dureePartie.TotalMinutes} minutes.");
