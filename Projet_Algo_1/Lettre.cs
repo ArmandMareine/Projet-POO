@@ -12,33 +12,54 @@ namespace Projet_Algo_1
     {
         private char caractere;
         private int valeur;
-        private int nombre; 
-
-        public Lettre(char caractere, int valeur, int nombre)///Constrcuteur naturel de la classe Lettre
+        private int nombre;
+        /// <summary>
+        /// Constrcuteur naturel de la classe Lettre
+        /// </summary>
+        /// <param name="caractere"></param>
+        /// <param name="valeur"></param>
+        /// <param name="nombre"></param>
+        public Lettre(char caractere, int valeur, int nombre)
         {
             this.caractere = caractere;
             this.valeur = valeur;
             this.nombre = nombre;
             
         }
-        ///Propriétés en Get pour les attributs
+        /// <summary>
+        /// Propriétés d'accès en lecture de Nombre
+        /// </summary>
         public int Nombre
         {
             get { return nombre; }
         }
+        /// <summary>
+        ///  Propriétés d'accès en lecture de Valeur
+        /// </summary>
         public int Valeur
         {
             get { return valeur; }
         }
-        
+        /// <summary>
+        ///  Propriétés d'accès en lecture de Caractère
+        /// </summary>
         public char Caractere
         {
             get { return caractere; }   
         }
+        /// <summary>
+        /// Méthode ToString pour l'affichage de la lettre et de ses attributs 
+        /// </summary>
+        /// <returns></returns>
         public string ToString()
         {
             return $"{caractere} (Valeur : {valeur}, Occurences : {nombre})";
         }
+        /// <summary>
+        /// Méthode de pondération des lettres
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static List<Lettre> Pondération(List<Lettre> list)
         {
             List<Lettre> result = new List<Lettre>();
@@ -52,6 +73,11 @@ namespace Projet_Algo_1
             }
             return result;
         }
+        /// <summary>
+        /// Méthode de lecture du fichier lettres avec usage du StreamReader
+        /// </summary>
+        /// <param name="cheminFichier2"></param>
+        /// <returns></returns>
         public static List<Lettre> LectureFichier(string cheminFichier2)
         {
             if (!File.Exists(cheminFichier2))
@@ -90,15 +116,12 @@ namespace Projet_Algo_1
                             Console.WriteLine($"Ligne mal formée : {ligne}");
                         }
                     }
-                }
-
-                
+                }              
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erreur lors de la lecture du fichier : {ex.Message}");
             }
-
             return lettres;
         }
     }

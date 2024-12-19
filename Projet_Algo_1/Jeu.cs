@@ -113,6 +113,10 @@ namespace Projet_Algo_1
             }
             FindePartie();///On appelle la fin de partie
         }
+        /// <summary>
+        /// Fonction pour retourner la langue utilisée pour le dictionnaire
+        /// </summary>
+        /// <returns></returns>
         public string GetLangueDictionnaire()
         {
             string langue;
@@ -124,6 +128,10 @@ namespace Projet_Algo_1
 
             return langue;
         }
+        /// <summary>
+        /// Fonction pour retourner le temps de partie voulu
+        /// </summary>
+        /// <returns></returns>
         public TimeSpan GetTempsDePartie()
         {
             int dureePartieMinutes;
@@ -134,6 +142,10 @@ namespace Projet_Algo_1
 
             return TimeSpan.FromMinutes(dureePartieMinutes);
         }
+        /// <summary>
+        /// Fonction pour obtenir le nombre de joueurs 
+        /// </summary>
+        /// <returns></returns>
         public int GetNbJoueurs()
         {
             int nbJoueurs;
@@ -144,6 +156,12 @@ namespace Projet_Algo_1
 
             return nbJoueurs;
         }
+        /// <summary>
+        /// Fonction qui gère les différents joueurs en renvoyant un tableau constitué de tous les joueurs 
+        /// </summary>
+        /// <param name="nbJoueurs"></param>
+        /// <param name="lettres"></param>
+        /// <returns></returns>
         public Joueur[] CreateJoueurs(int nbJoueurs, List<Lettre> lettres)///Méthode pour créer chaque joueur 
         {
             Joueur[] joueurs = new Joueur[nbJoueurs];
@@ -157,6 +175,10 @@ namespace Projet_Algo_1
             return joueurs;
             
         }
+        /// <summary>
+        /// Méthode pour afficher le tableau de joueurs au début de la partie
+        /// </summary>
+        /// <param name="joueurs"></param>
         public void AfficherJoueurs(Joueur[] joueurs)
         {
             Console.WriteLine("Les joueurs sont donc : ");
@@ -166,7 +188,11 @@ namespace Projet_Algo_1
             }
             Console.WriteLine("Que la partie commence !");
         }
-        public int GetTaillePlateau()/// Méthode pour obtenir la taille du plateau
+        /// <summary>
+        /// Fonction pour définir la taille du plateau à partir de la saisie utilisateur
+        /// </summary>
+        /// <returns></returns>
+        public int GetTaillePlateau()
         {
             int taillePlateau;
             bool b = false;
@@ -189,7 +215,11 @@ namespace Projet_Algo_1
 
             return taillePlateau;
         }
-        public TimeSpan GetTempsParTour()///Méthode pour le temps 
+        /// <summary>
+        /// Fonction qui retourne le temps de jeu par joueur
+        /// </summary>
+        /// <returns></returns>
+        public TimeSpan GetTempsParTour()
         {
             int dureeTourSecondes;
             do
@@ -199,12 +229,20 @@ namespace Projet_Algo_1
 
             return TimeSpan.FromSeconds(dureeTourSecondes);
         }
-        public string DemanderMotPlateau()///On demande à l'utilisateur le mot à saisir
+        /// <summary>
+        /// Fonction qui pemert de gérer la saisie utilisateur du mot vu sur le plateau 
+        /// </summary>
+        /// <returns></returns>
+        public string DemanderMotPlateau()
         {
             Console.WriteLine("Entrez un mot à former avec les lettres du plateau:");
             return Console.ReadLine()?.ToUpper();
         }
-        public void GenererNuageDeMots(Joueur joueur)///Nuage de mots
+        /// <summary>
+        /// Méthode du nuage de mots 
+        /// </summary>
+        /// <param name="joueur"></param>
+        public void GenererNuageDeMots(Joueur joueur)
         {
             try
             {
@@ -237,7 +275,7 @@ namespace Projet_Algo_1
                     Directory.CreateDirectory(cheminRepertoire);  /// Crée le répertoire si nécessaire
                 }
                 /// Sauvegarder le nuage de mots dans un fichier
-                ///Console.WriteLine($"Chemin complet du fichier : {cheminImage}");
+                
                 image.Save(cheminimage, ImageFormat.Png);  /// Sauvegarde l'image au chemin spécifié
 
                 if (File.Exists(cheminImage))
@@ -248,8 +286,7 @@ namespace Projet_Algo_1
                 {
                     Console.WriteLine($"Le fichier {cheminImage} n'a pas été trouvé.");
                 }
-                /// Utilisation d'ImageFormat.Png pour sauver l'image au format PNG
-                ///Console.WriteLine($"Nuage de mots sauvegardé pour {joueur.pseudo} : {cheminImage}");
+                
 
             }
             catch (Exception ex)/// Capture des exceptions pour gérer les erreurs éventuelles
@@ -257,6 +294,9 @@ namespace Projet_Algo_1
                 Console.WriteLine($"Erreur lors de la génération du nuage de mots pour {joueur.pseudo}: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Méthode qui gère la fin de la partie ; Affiche le gagnant et les instructions de fin
+        /// </summary>
         public void FindePartie()
         {
             Joueur gagnant = joueurs.OrderByDescending(j => j.GetScore()).First();

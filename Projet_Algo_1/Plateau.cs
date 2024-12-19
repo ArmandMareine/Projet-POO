@@ -37,7 +37,9 @@ namespace Projet_Algo_1
                 }
             }
         }
-
+        /// <summary>
+        /// Méthode qui va lancer tous les dés et donc construire le plateau de jeu
+        /// </summary>
         public void LancerTousLesDés()
         {
             Random random = new Random();
@@ -76,8 +78,17 @@ namespace Projet_Algo_1
                 Console.WriteLine();
             }
         }
-
+        /// <summary>
+        /// Méthode qui vérifie que le mot a plus de deux carractères
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <returns></returns>
         public static bool VérifLongueur(string mot) => mot.Length >= 2;///On vérifie que la longueur est d'au moins 2 caractères pour le mot
+        /// <summary>
+        /// On vérifie que le mot saisi est bien formable avec les lettres présentes sur le plateau 
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <returns></returns>
 
         public bool FormableAvecPlateau(string mot)
         {
@@ -148,6 +159,14 @@ namespace Projet_Algo_1
             }
             return false;/// Mot non trouvé
         }
+        /// <summary>
+        /// Méthode qui vérifie que le mot saisi par l'utlisateur est bien contenu dans le dictionnaire de la langue sélectionnée 
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <param name="langue"></param>
+        /// <param name="cheminfichier1"></param>
+        /// <param name="cheminfichier2"></param>
+        /// <returns></returns>
         public static bool AppartientDictionnaire(string mot, string langue, string cheminfichier1, string cheminfichier2)///Méthode qui va faire appel à la méthode de recherche dichotomique dans la liste triée afin de vérifier que le mot recherché s'y trouve bien
         {
             string cheminfichier = langue == "Français" ? cheminfichier1 : cheminfichier2;
@@ -167,7 +186,12 @@ namespace Projet_Algo_1
 
             return RechercheDichotomique(tri, mot);///Appel de la recherche dichotomique
         }
-
+        /// <summary>
+        /// Méthode de recherche dichotomique dans la liste du mot 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="motRechercher"></param>
+        /// <returns></returns>
 
         public static bool RechercheDichotomique(List<string> list, string motRechercher)///Algorithme sélectionné pour la recherche dichotomique 
         {
