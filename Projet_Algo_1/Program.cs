@@ -18,7 +18,7 @@ namespace Projet_Algo_1
             ///Lancement du jeu de Boggle
             Jeu jeu = new Jeu();
             jeu.InitialiserParamètresJeu();
-            jeu.DérouléJeu();
+            
 
         }
     }

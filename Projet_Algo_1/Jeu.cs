@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using WordCloudSharp;
@@ -46,7 +47,7 @@ namespace Projet_Algo_1
             dureeTours = GetTempsParTour();
 
             DérouléJeu();///Lancement du jeu
-
+            return;
         }
         public void DérouléJeu()
         {
@@ -258,7 +259,9 @@ namespace Projet_Algo_1
             }
             Console.WriteLine("Fin de la partie ! Merci d'avoir joué !");
             Console.WriteLine("Clique sur une touche du clavier pour quitter le jeu et la console ! ");
+            return;
         }
+       
 
 
     }
