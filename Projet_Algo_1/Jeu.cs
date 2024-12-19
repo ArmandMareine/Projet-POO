@@ -30,6 +30,7 @@ namespace Projet_Algo_1
             langue = GetLangueDictionnaire();
             cheminFichierMots = langue == "Français" ? "../../../../MotsPossiblesFR.txt" : "../../../../MotsPossiblesEN.txt";
             List<Lettre> lettres = Lettre.LectureFichier(cheminFichierLettres);
+            List<Lettre> facespondérées = Lettre.Pondération(lettres);
             Dictionnaire dictionnaire = new Dictionnaire(cheminFichierMots, langue);
             List<string> mots = dictionnaire.ChargerMots(cheminFichierMots);
             int nbJoueurs = GetNbJoueurs(); /// Demander le nombre de joueurs
@@ -38,7 +39,7 @@ namespace Projet_Algo_1
             ///Initialisation du plateau
             int taillePlateau = GetTaillePlateau();
             this.plateau = new Plateau(taillePlateau);
-            plateau.InitialiserDés(lettres);
+            plateau.InitialiserDés(facespondérées);
 
             ///Initialisation du temps de la partie
             dureePartie = GetTempsDePartie();

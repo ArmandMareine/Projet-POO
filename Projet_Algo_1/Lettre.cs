@@ -39,7 +39,19 @@ namespace Projet_Algo_1
         {
             return $"{caractere} (Valeur : {valeur}, Occurences : {nombre})";
         }
-        
+        public static List<Lettre> Pondération(List<Lettre> list)
+        {
+            List<Lettre> result = new List<Lettre>();
+            foreach (Lettre lettre in list)
+            {
+                for(int i=0; i<lettre.nombre; i++)
+                {
+                    result.Add(lettre);
+                }
+                
+            }
+            return result;
+        }
         public static List<Lettre> LectureFichier(string cheminFichier2)
         {
             if (!File.Exists(cheminFichier2))
