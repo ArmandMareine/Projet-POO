@@ -29,7 +29,7 @@ namespace Projet_Algo_1
         }
 
         /// <summary>
-        /// Méthode 1 pour le tri
+        /// Méthode 1 pour l'organisation : Lecture fichiers mots
         /// </summary>
         /// <param name="cheminFichier"></param>
         /// <returns></returns>
@@ -143,7 +143,6 @@ namespace Projet_Algo_1
         /// </summary>
         /// <param name="Mots"></param>
         /// <returns></returns>
-
         public static List<string> TriparFusion(List<string> Mots)///Tri par fusion sur le fichier de mots 
         {
             if (Mots.Count <= 1) /// Si la liste contient 0 ou 1 élément, elle est déjà triée donc on retourne la liste 
@@ -162,7 +161,6 @@ namespace Projet_Algo_1
             /// Fusion des deux listes triées en appellant la méthode 
             return Fusionner(Gauche, Droite);
         }
-
         /// <summary>
         /// Méthode de tri Fusion
         /// </summary>
@@ -187,14 +185,12 @@ namespace Projet_Algo_1
                     j++;
                 }
             }
-
             /// Ajouter le reste des éléments de la liste Gauche
             while (i < Gauche.Count)
             {
                 res.Add(Gauche[i]);
                 i++;
             }
-
             /// Ajouter le reste des éléments de la liste Droite
             while (j < Droite.Count)
             {
@@ -204,9 +200,13 @@ namespace Projet_Algo_1
 
             return res; /// Retourne la liste triée pour utilisation
         }
+        /// <summary>
+        /// Méthode de recherche dichotomique dans le fichier 
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="motRechercher"></param>
+        /// <returns></returns>
 
-
-        ///Recherche dichotomique dans le fichier 
         public static bool RechercheDichotomique(List<string> list, string motRechercher)
         {
             int debut = 0;
@@ -270,6 +270,12 @@ namespace Projet_Algo_1
 
             return i + 1; /// Retourner l'index du pivot
         }
+        /// <summary>
+        /// Méthode Tri Quicksort
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="debut"></param>
+        /// <param name="fin"></param>
         public static void Quick_Sort(List<string> list, int debut, int fin)
         {
             if (debut < fin)

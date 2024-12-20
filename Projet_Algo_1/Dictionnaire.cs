@@ -8,6 +8,9 @@ namespace Projet_Algo_1
 {
     internal class Dictionnaire
     {
+        /// <summary>
+        /// Attributs de la classe Dictionnaire
+        /// </summary>
         public List<string> Mots {  get; set; }
         public string Langue { get; set; }
 
@@ -34,7 +37,6 @@ namespace Projet_Algo_1
         /// Dictionnaire dictionnaire = new Dictionnaire("cheminFichier.txt", "Français");
         /// List<string> mots = dictionnaire.ChargerMots("cheminFichier.txt");
         /// </example>
-
         public List<string> ChargerMots(string cheminFichier)
         {
             try
@@ -72,8 +74,6 @@ namespace Projet_Algo_1
 
             return Mots;
         }
-
-
         /// <summary>
         /// Retourne un dictionnaire où les clés sont les lettres de l'alphabet et la valeur de chaque clé est le nombre de mots commençant par cette lettre
         /// </summary>
@@ -100,11 +100,6 @@ namespace Projet_Algo_1
             }
             return compteur;///Retourne le dictionnaire
         }
-
-
-
-
-
         /// <summary>
         ///Retourne un dictionnaire où les clés sont les longueurs des mots et la valeur de chaque clé est le nombre de mot étant de cette longueur 
         /// </summary>
@@ -128,9 +123,6 @@ namespace Projet_Algo_1
             }
             return compteur;///Retourne le dictionnaire
         }
-
-
-
 
         /// <summary>
         /// Retourne true ou false en fonction de si le mot qu'on cherche est dans la liste ou non
@@ -165,8 +157,13 @@ namespace Projet_Algo_1
         {
             return dict.OrderBy(entry => entry.Key).ToDictionary(entry => entry.Key, entry => entry.Value);
         }
-
-        public string toString(Dictionary<char, int> compteur,Dictionary<int,int> compteur1)///Fonction à finir avec une méthode de tri par lettre et par longueur de mot
+        /// <summary>
+        /// Méthode toString pour le tri
+        /// </summary>
+        /// <param name="compteur"></param>
+        /// <param name="compteur1"></param>
+        /// <returns></returns>
+        public string toString(Dictionary<char, int> compteur,Dictionary<int,int> compteur1)
         {
             var res = new System.Text.StringBuilder();
             var compteurTrié = TrieDictionnaireLettre(compteur);
